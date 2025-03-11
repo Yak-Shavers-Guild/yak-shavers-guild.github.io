@@ -129,8 +129,8 @@ Then it will perform three things:
 
 <ol><li>
 <p>
-Create an empty <code>.nojekyl</code> file, so github pages will be happy with
-the static HTML output
+Create an empty <code>.nojekyll</code> file, so github pages will be happy with
+the static HTML output and avoid needlessly invoking Jekyll;
 </p>
 </li>
 <li>
@@ -154,7 +154,7 @@ to "compile" them into HTML artifacts.
 </p>
 
 <pre data-lang="Makefile" class="src">all: extract_css infra
-	touch &dollar;&#xfeff;(OUTDIR)/.nojekyl
+	touch &dollar;&#xfeff;(OUTDIR)/.nojekyll
 	&dollar;&#xfeff;(MD) &dollar;&#xfeff;(MDFLAGS) --output &dollar;&#xfeff;(OUTDIR) index.md
 	&dollar;&#xfeff;(MD) &dollar;&#xfeff;(MDFLAGS) --output &dollar;&#xfeff;(OUTDIR) about.md</pre>
 
