@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Infrastucture - YSG</title>
+<link type="text/css" rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+onload="renderMathInElement(document.body);"></script>
+<script>
+    // https://github.com/KaTeX/KaTeX/blob/main/docs/autorender.md
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            // customised options
+            // auto-render specific keys, e.g.:
+                delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: "\begin{equation}", right: "\end{equation}", display: true},
+                {left: "\begin{align}", right: "\end{align}", display: true},
+            ],
+            // rendering keys, e.g.:
+            throwOnError : false
+        });
+    });
+ </script>
+
+</head>
+<body>
+<main>
+
+<p>
+<nav class="crumbs">
+</p>
+
+<ul><li>
+<p>
+<a href="../index.html">ysg</a>
+</p>
+</li>
+<li>
+<p>
+infrastructure
+</p>
+</li>
+</ul>
+
+<p>
+</nav>
+</p>
+
+<h1>Infrastructure of the Yak Shavers Guild</h1>
+
+<p>
+We build the Yak Shaves Guild using a literate programming toolkit we
+built from scratch.
+</p>
+
+<ul><li>
+<p>
+<a href="./makefile.html">Makefile</a> for generating the static HTML artifacts
+for Github and Codeberg pages
+</p>
+</li>
+<li>
+<p>
+<a href="./css/index.html">CSS code</a>
+</p>
+</li>
+</ul>
+
+<p>
+<footer>
+<b>[</b> <a href="../index.html">Back</a> <b>]</b>
+</footer>
+</p>
+
+</main>
+
+</body>
+</html>

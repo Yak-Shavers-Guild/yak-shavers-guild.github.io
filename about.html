@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>About - YSG</title>
+<link type="text/css" rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+onload="renderMathInElement(document.body);"></script>
+<script>
+    // https://github.com/KaTeX/KaTeX/blob/main/docs/autorender.md
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            // customised options
+            // auto-render specific keys, e.g.:
+                delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: "\begin{equation}", right: "\end{equation}", display: true},
+                {left: "\begin{align}", right: "\end{align}", display: true},
+            ],
+            // rendering keys, e.g.:
+            throwOnError : false
+        });
+    });
+ </script>
+
+</head>
+<body>
+<main>
+
+<p>
+<nav class="crumbs">
+</p>
+
+<ul><li>
+<p>
+<a href="./index.html">ysg</a>
+</p>
+</li>
+<li>
+<p>
+about
+</p>
+</li>
+</ul>
+
+<p>
+</nav>
+</p>
+
+<h1>About the Yak Shavers Guild</h1>
+
+<p>
+The Yak Shavers Guild is a study of how to implement proof assistants,
+as literate programs (in Knuth's sense, but producing HTML artifacts
+which you are reading).
+</p>
+
+<p>
+The "big picture" resembles <a href="https://plato.stanford.edu/entries/hilbert-program/">Hilbert's programme</a> in the foundations
+of mathematics. The broad contours consists of the following steps:
+</p>
+
+<ol><li>
+<p>
+We replace Hilbert's "finitary metatheory" with "a fragment of Standard ML".
+</p>
+</li>
+<li>
+<p>
+We build a proof assistant called "Myo" based on intuitionistic
+HOL. The goal is to be able to reason about code written using our
+fragment of Standard ML (from step 1) with Myo, and possibly
+generate Standard ML code using Myo.
+</p>
+
+<p>
+These two steps constitute a "computational approximation" of the
+informal metatheory of Hilbert's programme.
+</p>
+</li>
+<li>
+<p>
+We use Myo to build proof assistants for formalizing mathematics
+and prove properties about these proof assistants.
+</p>
+</li>
+</ol>
+
+<p>
+Want to study what happens if we vary the axioms of the set theory
+used to formalize mathematics? Or if we want to track the usage of the
+axiom of choice? Or if we want to add proof steps? Or if we want to
+follow Bourbaki and use <a href="https://plato.stanford.edu/entries/epsilon-calculus/">epsilon calculus</a> instead of first-order logic?
+</p>
+
+<p>
+One manner to study these questions has been sketched out in Markus
+Wenzel's <a href="https://mediatum.ub.tum.de/doc/601724/601724.pdf">PhD dissertation</a> (&sect;&sect;2&ndash;3): introduce an "abstract machine" for the
+proof assistant which acts as the specification for the proof
+assistant's behaviour. Then we prove that the code implements the
+specification, and prove properties about the proof assistant from the
+abstract machine.
+</p>
+
+<h2>Languages as Ontological Committment</h2>
+
+<p>
+The basic idea underlying the presentation: everything is built out of
+languages. It's <a href="https://en.wikipedia.org/wiki/Turtles_all_the_way_down">languages all the way down</a>.
+</p>
+
+<p>
+We start with an informal metalanguage (English), describe a formal
+metalanguage (Standard ML), and use it to construct proof assistants.
+</p>
+
+<p>
+After all, we will be describing one language after another,
+implementing interpreters for one language after another.
+</p>
+
+<p>
+Isn't this just an <a href="https://plato.stanford.edu/entries/infinite-regress/">infinite regression</a>
+of languages? Well, no, I assume the reader knows English already and
+some mathematical maturity. That is to say, there is some "ground" for
+the turtles to stand on.
+</p>
+
+<h2>FAQ</h2>
+
+<p>
+Let's be serious, no one is reading this site. But here's some
+questions people would ask (if anyone did read this site).
+</p>
+
+<h3>What about Yak Shaving?</h3>
+
+<p>
+This may sound all well and fine, but what gives with the name of this
+effort ("the Yak Shavers Guild")?
+</p>
+
+<p>
+Well, we need to implement tools for producing this website as a
+literate program (<code>tangle-md</code> extracts code from Markdown files, and
+<code>md</code> produces HTML from Markdown files).
+</p>
+
+<p>
+We need a suitable collection of libraries which are not present in
+Standard ML: an XUnit-style testing framework (<code>sml-xunit</code>),
+persistent binary search trees (<code>sml-bst</code>), parsers, and so on.
+</p>
+
+<p>
+Once we've implemented Myo, we need to circle back to prove the
+correctness of these libraries.
+</p>
+
+<p>
+But once we're done, there are "obvious" problems that plagues us: how
+do we know the computer's circuitry is "correct"? Or that the Standard
+ML compiler satisfies the formal Definition for the language?
+</p>
+
+<p>
+Well, we will have built the tools to answer these questions. 
+</p>
+
+<h3>Why Standard ML?</h3>
+
+<p>
+Several reasons:
+</p>
+
+<ol><li>
+<p>
+<b>Nastalgia.</b> The "primordial" ML language was introduced for the
+LCF family of proof assistants.
+</p>
+</li>
+<li>
+<p>
+<b>Rigor.</b>
+"Primordial" ML diverged into the CAML (later becoming OCaml) and
+Standard ML programming languages. But only Standard ML received a
+formal Definition. This degree of rigor is the second reason for using
+Standard ML.
+</p>
+
+<p>
+Other languages make it difficult to reason about, and anyone who's
+building proof assistants <i>wants to reason about stuff</i>.
+</p>
+</li>
+<li>
+<p>
+<b>Small memory footprint.</b>
+Other statically-typed functional languages have a heavy memory
+footprint (I'm looking at you, Haskell). But Standard ML is so <a href="https://en.wiktionary.org/wiki/spartan#English">Spartan</a>
+it might as well be called <a href="https://en.wikipedia.org/wiki/Leonidas_I">Leonidas</a>.
+</p>
+</li>
+<li>
+<p>
+<b>Sufficiently simple language.</b>
+Standard ML is simple enough to learn, which lowers the barrier for
+readers, and simple enough to reason about.
+</p>
+</li>
+</ol>
+
+<p>
+Coincidentally, a program written in Standard ML (or any
+statically-typed functional programming language) may be viewed as a
+sequence of definitions of new functions and words. That is to say, we
+are effectively building a dictionary atop a simple language. This
+plays into the ontological committment of languages.
+</p>
+
+<h3>Why not [other programming language]?</h3>
+
+<p>
+OCaml could ostensibly be a good alternative, but I dislike it's
+double semicolon syntax and using <code>let</code> to bind everything.
+</p>
+
+<p>
+Haskell is too memory intense and I can't get it to run on my
+Raspberry Pi (so it's not portable).
+</p>
+
+<p>
+C++ is not a programming language, it's a nuclear-powered way to shoot
+yourself in the foot and then in the face. Trying to reason about C++
+is like trying to hold back the sea by punching it.
+</p>
+
+<p>
+Most imperative languages are difficult to reason with, so I won't
+bother enumerating them all here.
+</p>
+
+<p>
+This left the scales tipped heavily in favor of Standard ML.
+</p>
+
+<h3>Why is the proof assistant called "Myo"?</h3>
+
+<p>
+This is a bit of a joke. I wrote about the <a href="https://pqnelson.github.io/2024/06/11/MYSTIC-challenge.html">MYSTIC Challenge</a>
+("Make Yourself a Simplified Toy Isabelle Clone Challenge"). Myo is an
+attempt at solving it, to some degree.
+</p>
+
+<p>
+And if you know Japanese Buddhism, you know <a href="https://en.wiktionary.org/wiki/%E5%A6%99#Japanese">妙</a> (Jpn: <i>myō</i>) is the word for
+"mystic". 
+</p>
+
+<p>
+The word isn't used by any other proof assistant or programming
+language, it's short enough to be used as a suffix (<code>file.myo</code>), and
+it's memorable ("Mayo without the 'a'"). What more could you want for
+a name?
+</p>
+
+<p>
+<footer>
+<b>[</b> <a href="./index.html">Back</a> <b>]</b>
+</footer>
+</p>
+
+</main>
+
+</body>
+</html>

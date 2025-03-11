@@ -1,0 +1,295 @@
+html {
+    /* font: normal 12pt/18pt serif; */
+    /* font: normal 16pt/24pt Palatino, serif; */
+    font-family: "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville, "Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif;
+    font-size: 20px;
+    line-height: calc(1ex / 0.32);
+}
+
+body {
+    background-color: #4f4b36;
+    /* background-color: #565656; */
+    /* background-color: #fff3a6; */
+    margin: 0px;
+    min-height: 100vh;
+}
+
+main {
+    background-color: white;
+    min-height: 100vh;
+}
+
+footer {
+    border-top: 1px solid black;
+    text-align: center;
+}
+
+/* figures should be centered and have max-width */
+figure {
+    max-width: 100%;
+    text-align: center;
+}
+figcaption {
+    font-size: smaller;
+}
+
+cite {
+    font-style: italic;
+}
+
+abbrev {
+    text-decoration: underline dotted 1px;
+}
+
+dfn {
+    color: green;
+    font-style: normal;
+    text-decoration: underline dotted green 1px;
+}
+dfn::before {
+    content: open-quote;
+}
+dfn::after {
+    content: close-quote;
+}
+dfn:hover {
+    text-decoration: underline wavy green 1px;
+}
+
+h1 {
+    line-height: 32pt;
+}
+
+blockquote {
+    border-left: 1px dotted;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+ol,ul {
+    margin: 0px;
+}
+
+li p:first-child {
+    margin-top: .125rem;
+}
+li p:last-child, li p:has(+ul), li p:has(+ol) {
+    margin-bottom: .125rem;
+}
+
+pre, code {
+    font-size: 13px;
+}
+#cdcdcd   #c2c2c2
+code {
+    background: #ffffff; /* bg_0 */
+    color: #373737;      /* fg_0, AppleRGB */
+}
+
+pre {
+    background: #112e38; /* bg_0, AppleRGB */
+    color: #adbcbc;      /* fg_0 */
+    /* background: #f6f8fa; */
+    /* color: #1f2328; */
+    /* background: #afb8c133; */
+    /* background: #f1f1f1; */
+}
+
+pre .comment {
+    color: #72898f;      /* dim_0 */
+    font-style: italic;
+}
+
+pre.example {
+    background: #fbf3db; /* bg_0 */
+    color: #43545a;      /* fg_0, using AppleRGB for darkness */
+}
+
+pre.example .comment {
+    color: #909995;      /* dim_0 */
+    font-style: italic;
+}
+/*
+keyword: #cf222e;
+entity: #6639ba;
+constant: #0550ae;
+comment: #57606a;
+*/
+
+code {
+    padding: 2px;
+}
+pre {
+    line-height: 18px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+@media only screen {
+    pre {
+        margin: 0 -6px;
+        padding: 6px;
+    }
+}
+
+@media screen {
+    /* Show the language name when hovering over
+       the PRE block, using the data-lang attribute. */
+    pre.src, pre.example {
+        position: relative;
+    }
+    
+    pre.src::before, pre.example::before {
+        display: none;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        padding: 0px 3px;
+    }
+    
+    /* Use white as the background, to "alert" the
+       reader that this is not some "dynamic code change"
+       (or whatever), but an "English text addendum".
+   */
+    pre.src:hover::before {
+        display: inline;
+        background: #fff;
+        border: 1pt solid #909090;
+        color: black;
+        content: attr(data-lang);
+        z-index: 1000;
+    }
+
+    pre.example:hover::before {
+        display: inline;
+        background: #fff;
+        border: 1pt solid #909090;
+        content: attr(data-lang) "(example)";
+        z-index: 1000;
+    }
+}
+
+nav.crumbs {
+    border-bottom: 1px solid #ccc;
+    font-size: smaller;
+    line-height: 2.42705098ex; /* == 1.5*phi*ex */
+}
+
+@media only screen {
+    nav.crumbs {
+        margin-top: -5.5ex; /* eye-ball estimate */
+        max-height: 5ex;
+    }
+}
+
+@media only print {
+    nav.crumbs {
+        padding-left: 1ex;
+    }
+}
+
+nav.crumbs ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+nav.crumbs ul li{
+  display: inline-block;
+}
+
+nav.crumbs a::after {
+  display: inline-block;
+  color: #000;
+  content: ">";
+  font-size: 80%;
+  font-weight: bold;
+  padding-left: 1ex;
+}
+
+nav.crumbs > p, nav.crumbs + p {
+    display: none;
+    margin: 0;
+}
+
+/* Directory trees should be suitably
+   different from normal text */
+div.tree {
+    font: 13px mono;
+    line-height: 15px;
+}
+
+/* End of showing the language name
+   when hovering over the PRE block */
+@media only screen and (min-width: 600px) {
+    main {
+        margin: 0 auto;
+        /* margin: 0 auto 0 40%; */
+        width: 60ch;
+        padding: 1rem;
+    }
+    
+    div.tree {
+        padding-left:2.5rem;
+    }
+
+    .katex {
+        font-size: 1em !important;
+    }
+}
+
+@media only screen {
+    p {
+        margin: 2.25ex 0;
+    }
+    pre {
+        margin: -2ex -6px;
+    }
+}
+
+@media only screen and (max-width: 599px) {
+    body {
+        width: 100vw;
+    }
+    main {
+        padding: 0.5rem;
+    }
+    .katex {
+        font-size: 1em !important;
+    }
+    pre {
+        /* font-size: 20px; */
+        overflow-x: scroll;
+        /* background-image: linear-gradient(180deg, #eee 50%, #fff 50%); */
+        /* background-size: 100% 48px; */
+        /* line-height: 24px; */
+    }
+    blockquote {
+        margin-right: 0px;
+        margin-left: 0.25rem;
+        padding-left: 0.25rem;
+    }
+    ol,ul {
+        padding-left: 1.25rem;
+    }
+    li p:first-child {
+        margin-top: .75rem;
+    }
+    li p:last-child {
+        margin-bottom: .75rem;
+    }
+}
+
+/* Printed versions should indent the text */
+@media only print {
+    p + p, main > p {
+      text-indent: 2rem;
+      margin: 0 auto;
+    }
+    pre {
+        color: black;
+        background-color: white;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        padding: 1ex;
+    }
+}
+

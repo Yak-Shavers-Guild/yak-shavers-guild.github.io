@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Stylesheet of the Yak Shavers Guild</title>
+<link type="text/css" rel="stylesheet" href="../../css/style.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+onload="renderMathInElement(document.body);"></script>
+<script>
+    // https://github.com/KaTeX/KaTeX/blob/main/docs/autorender.md
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            // customised options
+            // auto-render specific keys, e.g.:
+                delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: "\begin{equation}", right: "\end{equation}", display: true},
+                {left: "\begin{align}", right: "\end{align}", display: true},
+            ],
+            // rendering keys, e.g.:
+            throwOnError : false
+        });
+    });
+ </script>
+
+</head>
+<body>
+<main>
+
+<p>
+<nav class="crumbs">
+</p>
+
+<ul><li>
+<p>
+<a href="../../index.html">ysg</a>
+</p>
+</li>
+<li>
+<p>
+<a href="../index.html">infrastructure</a>
+</p>
+</li>
+<li>
+<p>
+<a href="./index.html">css</a>
+</p>
+</li>
+<li>
+<p>
+style.css
+</p>
+</li>
+</ul>
+
+<p>
+</nav>
+</p>
+
+<h1>CSS Style</h1>
+
+<h2>Common CSS Code for all readers</h2>
+
+<h3>Basic design: column of text</h3>
+
+<p>
+I want to have the text presented in a single column, presented in the
+center of the page, with some background.
+</p>
+
+<p>
+Initially, I thought the Bourbaki cover's cream color (<code>#fff3a6</code>) would
+be wonderful, but it was too light. I then switched to several darker
+tones (<code>#4f4b36</code>).
+</p>
+
+<p>
+The <code>min-height: 100vh</code> property ensures that for pages which lack a
+lot of text, the center column will fill up the entire screen
+vertically (and not "stop short", being a fraction of the screen).
+</p>
+
+<h3>Fonts</h3>
+
+<p>
+Generically, the font should be a serif, so I just picked
+Palatino. 
+</p>
+
+<p>
+The font size 20px was, again, just a random choice. The
+heuristic among graphic designers seems to be 16px to 20px, with text
+heavy sites preferring larger fonts.
+</p>
+<div class="proclaim">
+<p>
+<b>Remark:</b> <i>Font size and text width.</i><br>
+If I wanted to adhere to the 12-8-4 heuristic among graphic designers,
+then I should use 19.2px font size. (This yields a paragraph width
+being 576px or 8 "columns" wide. If I also wanted a 24px gutter, then
+the padding should be adjusted to 1.25rem.)
+<br>(End of Remark)
+</p>
+</div>
+<p>
+The line height calculation was, again, a heuristic which graphic
+designers seem to agree upon.
+</p>
+
+<pre data-lang="css" class="src">html {
+    /* font: normal 12pt/18pt serif; */
+    /* font: normal 16pt/24pt Palatino, serif; */
+    font-family: &quot;Palatino Linotype&quot;, Palatino, Palladio, &quot;URW Palladio L&quot;, &quot;Book Antiqua&quot;, Baskerville, &quot;Bookman Old Style&quot;, &quot;Bitstream Charter&quot;, &quot;Nimbus Roman No9 L&quot;, Garamond, &quot;Apple Garamond&quot;, &quot;ITC Garamond Narrow&quot;, &quot;New Century Schoolbook&quot;, &quot;Century Schoolbook&quot;, &quot;Century Schoolbook L&quot;, Georgia, serif;
+    font-size: 20px;
+    line-height: calc(1ex / 0.32);
+}
+
+body {
+    background-color: #4f4b36;
+    /* background-color: #565656; */
+    /* background-color: #fff3a6; */
+    margin: 0px;
+    min-height: 100vh;
+}
+
+main {
+    background-color: white;
+    min-height: 100vh;
+}</pre>
+
+<h3>Footers</h3>
+
+<p>
+For the footer, which will contain links to the parent directory's
+<code>index.html</code> and the current directory's <code>index.html</code>, I thought it
+should be smaller font and separated by a horizontal black line.
+</p>
+
+<pre data-lang="css" class="src">footer {
+    border-top: 1px solid black;
+    text-align: center;
+}</pre>
+
+<h3>Figures and captions</h3>
+
+<p>
+Figures should be centered and have a maximum width no larger than the
+main body of text.
+</p>
+
+<p>
+The caption for figures (which should always be present) should have a
+noticeably smaller font size.
+</p>
+
+<pre data-lang="css" class="src">/* figures should be centered and have max-width */
+figure {
+    max-width: 100%;
+    text-align: center;
+}
+figcaption {
+    font-size: smaller;
+}</pre>
+
+<h3>Inline citations, abbreviations, definitions</h3>
+
+<p>
+The citation tags should be italicized, though I may want to carve out
+different classes of citations (e.g., books, websites, lectures, etc.).
+</p>
+
+<pre data-lang="css" class="src">cite {
+    font-style: italic;
+}</pre>
+
+<p>
+Abbreviations should have a dotted underlining, to indicate they are
+abbreviations. (Though I seriously doubt I would use <code>&lt;abbrev&gt;</code> tags
+anywhere&hellip;)
+</p>
+
+<pre data-lang="css" class="src">abbrev {
+    text-decoration: underline dotted 1px;
+}</pre>
+
+<p>
+Definitions should be in green and dotted underline (it's different enough to be
+noticeable, not confused as a link). Upon hover, the underline becomes
+wavy. There should also be an opening and closing quotation mark.
+</p>
+
+<pre data-lang="css" class="src">dfn {
+    color: green;
+    font-style: normal;
+    text-decoration: underline dotted green 1px;
+}
+dfn::before {
+    content: open-quote;
+}
+dfn::after {
+    content: close-quote;
+}
+dfn:hover {
+    text-decoration: underline wavy green 1px;
+}</pre>
+
+<h3>Headers</h3>
+
+<p>
+The line-height for headers must not be too big, though this really only
+matters for mobile viewers.
+</p>
+
+<pre data-lang="css" class="src">h1 {
+    line-height: 32pt;
+}</pre>
+
+<h3>Block Quotes</h3>
+
+<p>
+Blockquotes should not have huge left margins, but a dotted line on the
+left-hand side.
+</p>
+
+<p>
+The consensus among CSS designers is to use <code>rem</code> as the preferred
+units on these matters.
+</p>
+
+<pre data-lang="css" class="src">blockquote {
+    border-left: 1px dotted;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+}</pre>
+
+<h3>Lists</h3>
+
+<p>
+The whitespace for lists inherits a lot of whitespace due to the items
+consisting of one or more paragraph <code>&lt;p&gt;</code> elements.
+</p>
+
+<p>
+Similarly, when we have a <code>p</code> followed by a list, we should want to
+lessen the margin beneath the paragraph.
+</p>
+
+<pre data-lang="css" class="src">ol,ul {
+    margin: 0px;
+}
+
+li p:first-child {
+    margin-top: .125rem;
+}
+li p:last-child, li p:has(+ul), li p:has(+ol) {
+    margin-bottom: .125rem;
+}</pre>
+
+<h3>Code blocks and inline code</h3>
+
+<p>
+Code blocks should have a light grey background, and inline code should
+have a little padding to make it fit snuggly on a line of text.
+</p>
+
+<p>
+If I change the <code>body</code> font to, say, <code>normal 21.3333px/32px Palatino, serif</code>,
+then I need to change the padding for <code>code</code> to reflect this (for <code>12px</code>
+code font, I'd need <code>padding: 4.6667px 2px;</code> or something similar; and
+for <code>14px</code> code font, I'd need <code>padding: 3.6667px 2px;</code>).
+</p>
+
+<p>
+The <code>example</code> blocks use <a href="https://github.com/jan-warchol/selenized/blob/master/the-values.md">Selenize</a> light font color scheme.
+</p>
+
+<p>
+The default <code>pre</code> block elements use Selenize dark's color
+scheme, specifically as suggested by the <a href="https://github.com/jan-warchol/selenized/blob/master/editors/visual-studio-code/themes/selenized-dark.json">VS Code style</a>
+(but also see the <a href="https://github.com/jan-warchol/selenized/blob/master/editors/emacs-WIP/Selenized-dark-theme.el">Emacs style</a>).
+</p>
+
+<p>
+The <code>code</code> elements are used for inline code elements, which is
+jarring to see as a dark background (when embedded in a white
+background). It's <i>too effective</i> at making the reader pause,
+preventing the reader from continuing to read. So I opted to use
+Selenize white.
+</p>
+
+<pre data-lang="css" class="src">pre, code {
+    font-size: 13px;
+}
+#cdcdcd   #c2c2c2
+code {
+    background: #ffffff; /* bg_0 */
+    color: #373737;      /* fg_0, AppleRGB */
+}
+
+pre {
+    background: #112e38; /* bg_0, AppleRGB */
+    color: #adbcbc;      /* fg_0 */
+    /* background: #f6f8fa; */
+    /* color: #1f2328; */
+    /* background: #afb8c133; */
+    /* background: #f1f1f1; */
+}
+
+pre .comment {
+    color: #72898f;      /* dim_0 */
+    font-style: italic;
+}
+
+pre.example {
+    background: #fbf3db; /* bg_0 */
+    color: #43545a;      /* fg_0, using AppleRGB for darkness */
+}
+
+pre.example .comment {
+    color: #909995;      /* dim_0 */
+    font-style: italic;
+}
+/*
+keyword: #cf222e;
+entity: #6639ba;
+constant: #0550ae;
+comment: #57606a;
+*/
+
+code {
+    padding: 2px;
+}
+pre {
+    line-height: 18px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+@media only screen {
+    pre {
+        margin: 0 -6px;
+        padding: 6px;
+    }
+}</pre>
+
+<p>
+Note to future self: if we want to remove the underline from links
+which appear in a <code>pre</code> block, we would do this using the following
+code (but it will keep the underline on hover):
+</p>
+
+<pre data-lang="css" class="example">pre a {
+    /* text-decoration: none; */ /* ??? */
+    text-decoration-style: dashed; /* dotted??? */
+    
+}
+pre a:hover {
+    text-decoration: underline;
+}</pre>
+
+<h3>Show programming language hovering above pre blocks</h3>
+
+<p>
+Now, we can use CSS and <code>data-lang</code> attribute of <code>pre.src</code> to show the
+language of source code blocks as a little blurb of text on the top
+right-hand side.
+</p>
+
+<p>
+Since we're using Selenized color schemes for syntax highlighting, we
+need to specify the font color for this "blurb" to be
+black. Otherwise, it will be "dark-ish grey".
+</p>
+
+<pre data-lang="css" class="src">@media screen {
+    /* Show the language name when hovering over
+       the PRE block, using the data-lang attribute. */
+    pre.src, pre.example {
+        position: relative;
+    }
+    
+    pre.src::before, pre.example::before {
+        display: none;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        padding: 0px 3px;
+    }
+    
+    /* Use white as the background, to &quot;alert&quot; the
+       reader that this is not some &quot;dynamic code change&quot;
+       (or whatever), but an &quot;English text addendum&quot;.
+   */
+    pre.src:hover::before {
+        display: inline;
+        background: #fff;
+        border: 1pt solid #909090;
+        color: black;
+        content: attr(data-lang);
+        z-index: 1000;
+    }</pre>
+
+<p>
+Similarly, hovering on an example should display the language name
+with "(example)" afterwards.
+</p>
+
+<pre data-lang="css" class="src">    pre.example:hover::before {
+        display: inline;
+        background: #fff;
+        border: 1pt solid #909090;
+        content: attr(data-lang) &quot;(example)&quot;;
+        z-index: 1000;
+    }
+}</pre>
+
+<h3>Navigation trees</h3>
+
+<p>
+Above a title, we might want to include a "tree" for the path to the
+file.
+</p>
+
+<p>
+It's rendered in a smaller font, with less vertical space for its
+body. After a few experiments, it appears $1.5\phi$ multiples of <code>ex</code>
+is visually appealing (where $\phi\approx1.618$ is the golden ratio).
+</p>
+
+<p>
+We use inline lists, separating the elements by <code>&gt;</code>. If there are any
+paragraphs after the <code>nav</code> but before the <code>h1</code> title, then we should
+not display them.
+</p>
+
+<p>
+I wish I had a "first principles derivation" for the <code>margin-top</code>
+being <code>-5.5ex</code>, but I don't have one. It just "looks about right".
+</p>
+
+<pre data-lang="css" class="src">nav.crumbs {
+    border-bottom: 1px solid #ccc;
+    font-size: smaller;
+    line-height: 2.42705098ex; /* == 1.5*phi*ex */
+}
+
+@media only screen {
+    nav.crumbs {
+        margin-top: -5.5ex; /* eye-ball estimate */
+        max-height: 5ex;
+    }
+}
+
+@media only print {
+    nav.crumbs {
+        padding-left: 1ex;
+    }
+}
+
+nav.crumbs ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+nav.crumbs ul li{
+  display: inline-block;
+}
+
+nav.crumbs a::after {
+  display: inline-block;
+  color: #000;
+  content: &quot;&gt;&quot;;
+  font-size: 80%;
+  font-weight: bold;
+  padding-left: 1ex;
+}
+
+nav.crumbs &gt; p, nav.crumbs + p {
+    display: none;
+    margin: 0;
+}</pre>
+
+<h3>Directory Trees</h3>
+
+<p>
+Last, we have directory trees to act as <a href="https://en.wikipedia.org/wiki/City_directory">"city directories"</a> for subprojects (and
+elsewhere). We should render this in a suitably nice way.
+</p>
+
+<pre data-lang="css" class="src">/* Directory trees should be suitably
+   different from normal text */
+div.tree {
+    font: 13px mono;
+    line-height: 15px;
+}</pre>
+
+<h2>Desktop specific rendering</h2>
+
+<p>
+Broadly, we consider a "desktop reader" to be when the user is using
+some kind of "screen" (as opposed to
+<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_paged_media"><code>print</code></a>)
+which is <b>at least 600px wide.</b>
+</p>
+
+<p>
+This particular width is just the consensus among graphic designers
+for "medium" screens (i.e., tablet screens and desktop monitors) &mdash;
+but this has changed over time (e.g., the
+<a href="https://design.digital.gov.my/en/docs/design/12-8-4-grid">Malayasian Government</a>
+uses 768px width and larger as the breakpoint for desktop monitors nowadays).
+</p>
+
+<p>
+Graphic designers have a consensus that the main column should be
+centered for "large" monitors, so that's what I ended up doing.
+</p>
+
+<p>
+The tree directory should be indented by <code>2.5rem</code> on the left for
+computer screens.
+</p>
+
+<p>
+Further, the text width for the main column should be near 60
+characters. Using <code>width: 60ch</code> produces something <i>near</i> this limit,
+though slightly more generous. (Again, this is the wisdom of graphic
+designers, though there is some scientific evidence backing this idea
+of 60 characters per line for text heavy websites.)
+</p>
+
+<p>
+We will also restrict KaTeX's font-size to be reasonable. It defaults
+to a <code>font-size: 1.21em</code> which makes it look fine relative to a
+sans-serif font, but it's huge for a serif font (like what we have).
+</p>
+
+<pre data-lang="css" class="src">/* End of showing the language name
+   when hovering over the PRE block */
+@media only screen and (min-width: 600px) {
+    main {
+        margin: 0 auto;
+        /* margin: 0 auto 0 40%; */
+        width: 60ch;
+        padding: 1rem;
+    }
+    
+    div.tree {
+        padding-left:2.5rem;
+    }
+
+    .katex {
+        font-size: 1em !important;
+    }
+}</pre>
+
+<h2>Screen paragraph margins</h2>
+
+<p>
+Generically, the paragraph margin should be <code>0.25ex</code> top and bottom,
+with 0 margin left and right.
+</p>
+
+<pre data-lang="css" class="src">@media only screen {
+    p {
+        margin: 2.25ex 0;
+    }
+    pre {
+        margin: -2ex -6px;
+    }
+}</pre>
+
+<h2>Mobile specific rendering</h2>
+
+<p>
+For any reader with no more than 599px width, we need to adjust some of
+the styling to avoid needless whitespace.
+</p>
+
+<p>
+Further, there is no background anymore: the centered text is now the
+entire content rendered. (This is idiomatic 12-8-4 convention.)
+</p>
+
+<pre data-lang="css" class="src">@media only screen and (max-width: 599px) {
+    body {
+        width: 100vw;
+    }
+    main {
+        padding: 0.5rem;
+    }
+    .katex {
+        font-size: 1em !important;
+    }
+    pre {
+        /* font-size: 20px; */
+        overflow-x: scroll;
+        /* background-image: linear-gradient(180deg, #eee 50%, #fff 50%); */
+        /* background-size: 100% 48px; */
+        /* line-height: 24px; */
+    }
+    blockquote {
+        margin-right: 0px;
+        margin-left: 0.25rem;
+        padding-left: 0.25rem;
+    }
+    ol,ul {
+        padding-left: 1.25rem;
+    }
+    li p:first-child {
+        margin-top: .75rem;
+    }
+    li p:last-child {
+        margin-bottom: .75rem;
+    }
+}</pre>
+
+<h2>Printed version</h2>
+
+<p>
+Printing versions of this out should indent paragraphs. Specifically, 
+<code>p + p</code> is for list items to not indent its first paragraph, and 
+<code>main &gt; p</code> indents all paragraphs in the main text (not quoted), etc.
+</p>
+
+<p>
+I should think about how Blockquotes indent paragraphs. The 
+<code>p + p</code> rule will indent the second (and later) paragraphs, which seems
+suitable. 
+</p>
+
+<p>
+Furthermore, for code blocks (really, anything in a <code>pre</code> block), I
+want to include a top and bottom border (as well as a small
+padding). This will make it easier to separate code snippets from the
+text. 
+</p>
+
+<p>
+<b>TODO:</b> Think about adding a prefix for "examples", as well as what
+to do about the language. (End of TODO)
+</p>
+
+<pre data-lang="css" class="src">/* Printed versions should indent the text */
+@media only print {
+    p + p, main &gt; p {
+      text-indent: 2rem;
+      margin: 0 auto;
+    }
+    pre {
+        color: black;
+        background-color: white;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        padding: 1ex;
+    }
+}</pre>
+
+<p>
+<footer>
+<b>[</b> <a href="./index.html">Back</a> <b>|</b> <a href="../index.html">Up</a> <b>]</b>
+</footer>
+</p>
+
+</main>
+
+</body>
+</html>
