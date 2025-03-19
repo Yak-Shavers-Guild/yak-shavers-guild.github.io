@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Fundamentals of Programming</title>
+<link type="text/css" rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+onload="renderMathInElement(document.body);"></script>
+<script>
+    // https://github.com/KaTeX/KaTeX/blob/main/docs/autorender.md
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            // customised options
+            // auto-render specific keys, e.g.:
+                delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: "\begin{equation}", right: "\end{equation}", display: true},
+                {left: "\begin{align}", right: "\end{align}", display: true},
+            ],
+            // rendering keys, e.g.:
+            throwOnError : false
+        });
+    });
+ </script>
+
+</head>
+<body>
+<main>
+
+<p>
+<nav class="crumbs">
+</p>
+
+<ul><li>
+<p>
+<a href="../../index.html">ysg</a>
+</p>
+</li>
+<li>
+<p>
+<a href="../index.html">sml</a>
+</p>
+</li>
+<li>
+<p>
+<a href="./index.html">tutorial</a>
+</p>
+</li>
+<li>
+<p>
+fundamentals
+</p>
+</li>
+</ul>
+
+<p>
+</nav>
+</p>
+
+<h1>Fundamentals of Programming</h1>
+
+<p>
+We begin with three fundamental claims which serve as a starting point
+for programming as an activity:
+</p>
+
+<p>
+<div class="proclaim">
+<b>Claim 1:</b> The <dfn>computer</dfn> is a magic box which performs the
+evaluation of expressions.
+</div>
+</p>
+
+<p>
+(This first claim is a convenient lie, close enough to the truth to
+work for our purposes.)
+</p>
+
+<p>
+<div class="proclaim">
+<b>Claim 2:</b> A <dfn>program</dfn> written in a functional programming language
+(like Standard ML) consists of a finite ordered sequence of <dfn>Declarations</dfn>
+which grows a "vocabulary" (each declaration adds a new
+<dfn>identifier</dfn> and its associated "meaning") atop the primitive
+notions provided by the functional programming language.
+</div>
+</p>
+
+<p>
+<div class="proclaim">
+<b>Claim 3:</b> Programming is an activity which attempts to solve a
+<dfn>problem</dfn> by producing a program.
+</div>
+</p>
+
+<p>
+Therefore computer programming is fundamentally an explanatory
+linguistic problem-solving process.
+</p>
+
+<h2>Explanations and Problems</h2>
+
+<p>
+Programming begins with the <b>Problem Statement</b>. These may be of
+various degrees of informality like:
+</p>
+
+<ul><li>
+<p>
+"Shuffle a deck of cards",
+</p>
+</li>
+<li>
+<p>
+"Determine if the given proposition is a tautology", 
+</p>
+</li>
+<li>
+<p>
+"Sort a given list of integers in ascending order",
+</p>
+</li>
+<li>
+<p>
+"Search a given collection for a given value".
+</p>
+</li>
+</ul>
+
+<p>
+We translate this into a <b>Specification</b> which expresses the problem
+using a more precise language for the expectations of the
+program. This requires thinking hard about the meaning of some
+informal terms (e.g., what does it mean to "shuffle" a deck of cards?).
+</p>
+
+<p>
+Functional programming languages can express specifications as
+mathematical statements, and be reasoned about algebraically.
+</p>
+
+<p>
+An "explanation" is harder to pin down. When we have a specification
+stated mathematically, we can <i>transform</i> it by manipulating
+expressions. We can successively transform it until we have an
+implementation &mdash; this is the heart of "Correct-by-Construction"
+techniques found in Roland Backhouse's <cite class="book">Program
+Construction: Calculating Implementations from Specifications</cite>
+(John Wiley and Sons, 2003).
+</p>
+
+<p>
+In effect, we are <b>elucidating</b> statements from informal to formal.
+</p>
+
+<p>
+<div class="proclaim advice">
+<b>Advice 1:</b> <i>Use examples</i>.<br>
+A great trick to elucidating a problem statement is to work with
+small-ish examples. Instead of shuffling a 52-card deck, what would
+shuffling a 6 card deck look like?
+</p>
+
+<p>
+These examples are useful later on, because they can later serve as
+unit tests to check the program works as we hoped.
+<br>(End of Advice 1)
+</div>
+</p>
+
+</main>
+
+</body>
+</html>

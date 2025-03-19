@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Tutorial on Standard ML</title>
+<link type="text/css" rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+onload="renderMathInElement(document.body);"></script>
+<script>
+    // https://github.com/KaTeX/KaTeX/blob/main/docs/autorender.md
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            // customised options
+            // auto-render specific keys, e.g.:
+                delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: "\begin{equation}", right: "\end{equation}", display: true},
+                {left: "\begin{align}", right: "\end{align}", display: true},
+            ],
+            // rendering keys, e.g.:
+            throwOnError : false
+        });
+    });
+ </script>
+
+</head>
+<body>
+<main>
+
+<p>
+<nav class="crumbs">
+</p>
+
+<ul><li>
+<p>
+<a href="../../index.html">ysg</a>
+</p>
+</li>
+<li>
+<p>
+<a href="../index.html">sml</a>
+</p>
+</li>
+<li>
+<p>
+tutorial
+</p>
+</li>
+</ul>
+
+<p>
+</nav>
+</p>
+
+<h1>Tutorial on Standard ML</h1>
+
+<p>
+This focuses on teaching <i>Mathematicians</i> how to program in (a purely
+functional fragment of) Standard ML. We assume you are familiar with
+the basic ideas discussed in the <a href="../../intro/index.html">Introduction</a>,
+specifically typed lambda calculus.
+</p>
+
+<p>
+Basically, Standard ML may be approximated as:
+</p>
+
+<ul><li>
+<p>
+Standard ML ≈ Prenex Polymorphic Lambda Calculus + Algebraic Data
+Types + Modules
+</p>
+</li>
+</ul>
+
+<p>
+This is not strictly speaking true (there's more bells and whistles in
+Standard ML that we won't need), but it's good enough for our
+purposes.
+</p>
+
+<ul><li>
+<p>
+<a href="fundamentals.html">Fundamentals of Functional Programming</a>
+</p>
+</li>
+<li>
+<p>
+<a href="naming-things.html">Naming Things</a>
+</p>
+</li>
+</ul>
+
+</main>
+
+</body>
+</html>
