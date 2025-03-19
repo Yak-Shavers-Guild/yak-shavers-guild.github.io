@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Syntax Untyped Lambda Calculus</title>
+<link type="text/css" rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+onload="renderMathInElement(document.body);"></script>
+<script>
+    // https://github.com/KaTeX/KaTeX/blob/main/docs/autorender.md
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            // customised options
+            // auto-render specific keys, e.g.:
+                delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: "\begin{equation}", right: "\end{equation}", display: true},
+                {left: "\begin{align}", right: "\end{align}", display: true},
+            ],
+            // rendering keys, e.g.:
+            throwOnError : false
+        });
+    });
+ </script>
+
+</head>
+<body>
+<main>
+
+<p>
+<nav class="crumbs">
+</p>
+
+<ul><li>
+<p>
+<a href="../../index.html">ysg</a>
+</p>
+</li>
+<li>
+<p>
+<a href="../index.html">introduction</a>
+</p>
+</li>
+<li>
+<p>
+<a href="./index.html">untyped lambda calculus</a>
+</p>
+</li>
+<li>
+<p>
+syntax
+</p>
+</li>
+</ul>
+
+<p>
+</nav>
+</p>
+
+<h1>Syntax of Untyped Lambda Calculus</h1>
+
+<p>
+When we introduce a deductive system (in this case, untyped lambda
+calculus), the first step is to introduce the <i>syntax</i> &mdash; that is to
+say, the underlying <a href="../language.html">formal language</a>.
+</p>
+
+<h2>Formal Language</h2>
+
+<p>
+The formal language underlying untyped lambda calculus requires a
+countably infinite set of variables $\mathcal{V}$ which we assume is
+given. It cannot include $\lambda$, $.$, or parentheses as variables.
+</p>
+
+<p>
+The elements of the formal language are called <dfn>Lambda Expressions</dfn>
+and are inductively defined by the following rules:
+</p>
+
+<ul><li>
+<p>
+<b>Variables:</b> Every variable is a lambda expression
+</p>
+</li>
+<li>
+<p>
+<b>Abstractions:</b> If $x$ is a variable and $e$ is a lambda expression,
+then $\lambda x\ldotp e$ is a lambda expression
+</p>
+</li>
+<li>
+<p>
+<b>Applications:</b> If $e_{1}$ and $e_{2}$ are lambda expressions,
+then $e_{1}~e_{2}$ is a lambda expression
+</p>
+</li>
+<li>
+<p>
+<b>Parentheticals:</b> If $e$ is a lambda expression, then $(e)$ is a lambda expression.
+</p>
+</li>
+</ul>
+
+<p>
+And that's it. Strictly speaking, the parenthetic rule is a "quality
+of life" rule: it simplifies our lives, but it's not strictly
+necessary.
+</p>
+
+<p>
+This can be given as formal definition.
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 1:</b> <i>Lambda-expressions</i>.<br>
+Let $\mathcal{V}$ be a countably infinite set of variables. We
+inductively define the set $\mathcal{E}$ of <dfn>Lambda-Expressions</dfn> over
+$\mathcal{V}$ by the following rules governing intermediate sets:
+</p>
+
+<ul><li>
+<p>
+For all $x\in\mathcal{V}$ we have $x\in\mathcal{E}_{0}$
+</p>
+</li>
+<li>
+<p>
+For any $x\in\mathcal{V}$ and $e\in\mathcal{E}_{n}$ 
+we have $\lambda x\ldotp e\in\mathcal{E}_{n+1}$
+</p>
+</li>
+<li>
+<p>
+For any $e_{1},e_{2}\in\mathcal{E}_{n}$
+we have $(e_{1}~e_{2})\in\mathcal{E}_{n+1}$
+</p>
+</li>
+<li>
+<p>
+For any $n\in\mathbb{N}_{0}$ we have $\mathcal{E}_{n}\subseteq\mathcal{E}_{n+1}$
+</p>
+</li>
+</ul>
+
+<p>
+Then we have
+\[\mathcal{E} = \bigcup_{n\in\mathbb{N}_{0}}\mathcal{E}_{n}.\]
+This allows us to prove properties about lambda-expressions by
+structural induction (which, in this case, coincides with induction over $n$).
+<br>(End of Definition 1)
+</div>
+</p>
+
+<p>
+<div class="proclaim remark">
+<b>Remark:</b> <i>BNF-ish presentation</i><br>
+It's conventional to use metavariables to define the grammar for the
+underlying language as follows:
+\[\begin{array}{rcl}
+e & ::= & x \\
+  & \mid & \lambda x\ldotp e\\
+  & \mid & e~e
+\end{array}\]
+This is how computer scientists present it, and it's shorthand for the
+more explicit version in Definition 1.
+<br>(End of Remark)
+</div>
+</p>
+
+<p>
+Informally, we think of abstractions as "an expression parametrized by
+other expressions represented by a variable". Applications then are
+used to "replace" variables in abstractions $e_{1}$ with concrete
+expressions $e_{2}$ &mdash; and really substitution is the heart of lambda
+calculus. 
+</p>
+
+<h2>Syntactic Operations</h2>
+
+<p>
+We will need a few notions to discuss the syntactic aspects of untyped
+lambda calculus.
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 2:</b> <i>Free Variables</i><br>
+We inductively define the set of <dfn>Free Variables</dfn> of a
+lambda-expression by
+</p>
+
+<ul><li>
+<p>
+$\operatorname{FV}(x)=\{x\}$
+</p>
+</li>
+<li>
+<p>
+$\operatorname{FV}(\lambda x\ldotp e)=\bigl(\operatorname{FV}(e)\bigr)\setminus\{x\}$
+</p>
+</li>
+<li>
+<p>
+$\operatorname{FV}(e_{1}~e_{2})=\operatorname{FV}(e_{1})\cup\operatorname{FV}(e_{2})$
+</p>
+</li>
+</ul>
+
+<p>
+<br>(End of Definition 2)
+</div>
+</p>
+
+<p>
+"Free variables" are "fixed but unknown expressions".
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 3:</b> <i>Bound Variables</i><br>
+We inductively define the set of <dfn>Bound Variables</dfn> of a
+lambda-expression by
+</p>
+
+<ul><li>
+<p>
+$\operatorname{BV}(x)=\emptyset$
+</p>
+</li>
+<li>
+<p>
+$\operatorname{BV}(\lambda x\ldotp e)=\{x\}\cup\operatorname{BV}(e)$
+</p>
+</li>
+<li>
+<p>
+$\operatorname{BV}(e_{1}~e_{2})=\operatorname{BV}(e_{1})\cup\operatorname{BV}(e_{2})$
+</p>
+</li>
+</ul>
+
+<p>
+And that's it.
+<br>(End of Definition 3)
+</div>
+</p>
+
+<p>
+We should interpret "bound variables" as "stage instructions": they
+are literally placeholders for other lambda-expressions.
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 4:</b> <i>Subexpressions</i><br>
+We may inductively define the <dfn>Set of Subexpressions</dfn> for a
+lambda-expression as follows:
+</p>
+
+<ul><li>
+<p>
+$\operatorname{Sub}(x)=\{x\}$
+</p>
+</li>
+<li>
+<p>
+$\operatorname{Sub}(\lambda x\ldotp e) = \{\lambda x\ldotp e\}\cup\operatorname{Sub}(e)$
+</p>
+</li>
+<li>
+<p>
+$\operatorname{Sub}(e_{1}~e_{2}) = \{e_{1}~e_{2}\}\cup\operatorname{Sub}(e_{1})\cup\operatorname{Sub}(e_{2})$
+</p>
+</li>
+</ul>
+
+<p>
+If $e\in\operatorname{Sub}(e')$, then we say that $e$ is a
+<dfn>Subexpression</dfn> of $e'$ &mdash; moreover, if $e\neq e'$ we call
+$e$ a <dfn>Proper Subexpression</dfn>.
+<br>(End of Definition 4)
+</div>
+</p>
+
+<p>
+<footer>
+<b>[</b> <a href="index.html">Back</a> <b>|</b> <a href="index.html">Up</a> <b>|</b> <a href="operational-semantics.html">Next</a> <b>]</b>
+</footer>
+</p>
+
+</main>
+
+</body>
+</html>

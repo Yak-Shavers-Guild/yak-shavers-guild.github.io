@@ -33,11 +33,71 @@ figcaption {
     font-size: smaller;
 }
 
+div.remark {
+    border-left: 1px dotted black;
+    font-size: smaller;
+    line-height: calc(1ex / 0.32);
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.proclaim:not(.remark):hover {
+    background-color: #D9FEE5;
+    border: 1px solid #265F39;
+    margin: -1px -0.5rem;
+    padding: 0 calc(0.5rem - 1px);
+
+}
+
+.proclaim > p:last-of-type {
+    margin-bottom: 0px;
+}
+
+.remark.proclaim:hover {
+    background-color: #D9FEE5; /* #90EE90; */
+}
+
+div.danger {
+    background-color: #fff8ee;
+    border-left-style: solid;
+    border-width: 5px;
+    border-color: red;
+    margin-bottom: 2em;
+    padding: 6px 0px 6px 10px;
+}
+
+div.danger p:first-of-type {
+    display: inline;
+}
+
+div.danger:before {
+    color: #ccc;
+    content: '☡';
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.25em;
+}
+
+kbd {
+    border-radius: 0.25rem;
+    border: 1px solid #cbcccd;
+    box-shadow: 0 2px 0 1px #cbcccd;
+    /* display: inline-block; */
+    font-size: 0.6875em;
+    line-height: 1;
+    padding: 2px 5px;
+    position: relative;
+    text-align: center;
+    top: -1px;
+}
+
 cite {
     font-style: italic;
 }
 
-abbrev {
+abbr {
     text-decoration: underline dotted 1px;
 }
 
@@ -61,9 +121,19 @@ h1 {
 }
 
 blockquote {
-    border-left: 1px dotted;
-    margin-left: 0.5rem;
-    padding-left: 0.5rem;
+  background: #f9f9f9;
+  border-left: 3px solid #ccc;
+  font-size: 92.7%; /* 1.5/phi */
+  line-height: calc(1ex / 0.32);
+  margin: 0 0 0 0.5rem;
+  padding: 0.5rem;
+}
+
+blockquote > p:first-of-type {
+    margin-top: 0;
+}
+blockquote > p:last-of-type {
+    margin-bottom: 0;
 }
 
 ol,ul {
@@ -281,8 +351,8 @@ div.tree {
 /* Printed versions should indent the text */
 @media only print {
     p + p, main > p {
-      text-indent: 2rem;
-      margin: 0 auto;
+        text-indent: 2rem;
+        margin: 0 auto;
     }
     pre {
         color: black;
@@ -290,6 +360,10 @@ div.tree {
         border-top: 1px solid black;
         border-bottom: 1px solid black;
         padding: 1ex;
+    }
+
+    div.remark + p {
+        text-indent: 0px;
     }
 }
 

@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
 <title>About - YSG</title>
-<link type="text/css" rel="stylesheet" href="css/style.css" />
+<link type="text/css" rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
 
 <!-- The loading of KaTeX is deferred to speed up page rendering -->
@@ -72,7 +72,7 @@ of mathematics. The broad contours consists of the following steps:
 
 <ol><li>
 <p>
-We replace Hilbert's "finitary metatheory" with "a fragment of Standard ML".
+We replace Hilbert's "finitary metatheory" with "a fragment of <a href="./sml/index.html">Standard ML</a>".
 </p>
 </li>
 <li>
@@ -112,16 +112,65 @@ specification, and prove properties about the proof assistant from the
 abstract machine.
 </p>
 
+<h2>Inspirations</h2>
+
+<p>
+This project is motivated from Hilbert's programme broadly, but how
+we're implementing it as a website which links identifiers back to
+their definitions (all the way back to Standard ML's "basis" [prelude]
+library) was heavily inspired by <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Looking-Up-Identifiers.html">Emacs's</a> <kbd>M-.</kbd> taking the
+user to the definition of identifiers all the way back to the C code.
+</p>
+
+<p>
+The basic 3-language strategy (use (1) a programming language to build
+(2) a logical framework to implement (3) a proof assistant) was
+proposed in Robert Pollack's "On extensibility of proof checkers" (in
+Dybjer, Nordström, and Smith (eds),
+<cite>International Workshop on Types for Proofs and Programs</cite> TYPES
+1994, Springer, pp. 140-161, <a href="https://doi.org/10.1007/3-540-60579-7_8"><code>doi:10.1007/3-540-60579-7_8</code></a>). 
+</p>
+
+<p>
+But it stemmed from trying to explore <a href="https://mizar.uwb.edu.pl/">Mizar</a>-like declarative style
+proof assistants, and see how we could support "variations of the axioms"
+(like using Feferman universes instead of Grothendieck universes).
+</p>
+
+<p>
+It'd be nice to reason about the metatheory of a Mizar-like proof
+assistant. <a href="https://isabelle.in.tum.de/">Isabelle</a> is an
+extraordinarily extensible logical framework (which acts like an
+"engine" for emulating deductive systems), but it is not a
+<i>metalogical</i> framework (which allows us to <i>reason about</i> deductive
+systems, i.e., prove metatheoretic properties about a deductive
+system). HOL is a metalogical framework.
+</p>
+
+<p>
+A similar project is Cezary Kaliszyk and Karol Pąk's Isabelle/Mizar
+research programme. Many of the papers reporting results concerning
+Isabelle/Mizar may be found on <a href="https://alioth.uwb.edu.pl/~pakkarol/publications.php">Karol Pąk's homepage</a>.
+</p>
+
+<p>
+Daniel de Haas's observations about
+<a href="https://danielde.dev/blog/what-emacs-got-right">what Emacs got right</a>
+is applicable to our endeavour, as is Smalltalk's "extreme" philosophy
+(where "you live in the program" &mdash; see Ralf Johnson's 
+<a href="http://perchta.fit.vutbr.cz/smalltalk/7">Smalltalk is different</a>).
+</p>
+
 <h2>Languages as Ontological Committment</h2>
 
 <p>
 The basic idea underlying the presentation: everything is built out of
-languages. It's <a href="https://en.wikipedia.org/wiki/Turtles_all_the_way_down">languages all the way down</a>.
+<a href="intro/language.html">languages</a>. It's <a href="https://en.wikipedia.org/wiki/Turtles_all_the_way_down">languages all the way down</a>.
 </p>
 
 <p>
 We start with an informal metalanguage (English), describe a formal
-metalanguage (Standard ML), and use it to construct proof assistants.
+metalanguage (<a href="sml/index.html">Standard ML</a>), and use it to construct proof assistants.
 </p>
 
 <p>

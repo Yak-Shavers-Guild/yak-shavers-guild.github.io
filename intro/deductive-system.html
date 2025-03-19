@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Deductive Systems</title>
+<link type="text/css" rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+onload="renderMathInElement(document.body);"></script>
+<script>
+    // https://github.com/KaTeX/KaTeX/blob/main/docs/autorender.md
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            // customised options
+            // auto-render specific keys, e.g.:
+                delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: "\begin{equation}", right: "\end{equation}", display: true},
+                {left: "\begin{align}", right: "\end{align}", display: true},
+            ],
+            // rendering keys, e.g.:
+            throwOnError : false
+        });
+    });
+ </script>
+
+</head>
+<body>
+<main>
+
+<p>
+<nav class="crumbs">
+</p>
+
+<ul><li>
+<p>
+<a href="../index.html">ysg</a>
+</p>
+</li>
+<li>
+<p>
+<a href="./index.html">introduction</a>
+</p>
+</li>
+<li>
+<p>
+deductive systems
+</p>
+</li>
+</ul>
+
+<p>
+</nav>
+</p>
+
+<h1>Deductive Systems</h1>
+
+<p>
+The goal is to describe a foundations of Mathematics as a deductive
+system, which just exchanges one undefined phrase for another.
+</p>
+
+<p>
+The phrase "deductive system" is not well-defined, but we can offer a
+definition which covers most foundations of Mathematics.
+</p>
+
+<p>
+The intuition will be to describe a deductive system by (1) a
+collection of "judgements", predicates in the <a href="./language.html#object-and-metalanguage">metalanguage</a> about
+sentences in the object language; and (2) a collection of axioms and
+inference rules which tell us how to use judgements to form new
+judgements.
+</p>
+
+<h2>Judgements</h2>
+
+<p>
+The first ingredient in a deductive system are judgements. We offer
+the following definition for us to get started:
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 1:</b> <i>Judgement Form and Judgement</i>.<br>
+Let $L_{\text{ob}}$ be an object language and $L_{\text{meta}}$ be a
+metalanguage for $L_{\text{ob}}$.
+We define a <dfn>Judgement Form</dfn> is a predicate in the
+metalanguage $L_{\text{meta}}$.
+</p>
+
+<p>
+When a judgement form is applied to words in the object language, we
+obtain a <dfn>Judgement</dfn> or proposition in the metalanguage.
+<br>(End of Definition 1)
+</div>
+</p>
+
+<p>
+<div class="proclaim remark">
+<b>Remark:</b> <i>Spelling of 'judgement'</i>.<br>
+Note that we will be adopting the convention that Courts of Law issue
+<i>judgments</i> with only one 'e', whereas we will work with lesser
+'judgements' with two 'e' letters.
+<br>(End of Remark)
+</div>
+</p>
+
+<p>
+The idea is that we're taking elements of the object language and
+<i>judge</i> them to satisfy some property (expressed in the metalanguage)
+or stand in some relation to one another (again, expressed in the
+metalanguage).
+</p>
+
+<p>
+One family of judgement form which is useful is to check if we can
+attach a label $\ell$ to a word $w$. This underpins type theory.
+</p>
+
+<p>
+Another family of judgement form which computer scientists use asserts
+an expression $e$ can be evaluated to produce an expression $e'$ in
+finitely many steps.
+</p>
+
+<p>
+Logicians would recognize the judgement form asserting that a
+proposition is true. Each proof calculus has its own <i>distinct</i>
+version of this judgement form.
+</p>
+
+<p>
+A common typographical convention is to use sans serif font when
+writing the Judgement form.
+</p>
+
+<p>
+For example, the judgement
+"$P~\mathsf{true}$" asserts the formula $P$ in the object language is
+true.
+</p>
+
+<p>
+Or "$w~\mathsf{has\ label}~\ell$" for the judgement that word $w$ can
+labeled with the label $\ell$.
+</p>
+
+<p>
+But other times the notation is "grandfathered in". For example,
+evaluating expressions is usually written "$e\to e'$" even though $\to$
+is a symbol in the metalanguage.
+</p>
+
+<h2>Inference Rules</h2>
+
+<p>
+The second ingredient to deductive systems tell us how to use judgements.
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 2:</b> <i>Inference rules</i>.<br>
+Let $J$, $J_{1}$, &hellip;, $J_{n}$ be judgement forms where $n\geq0$ is a
+non-negative number.
+We define an <dfn>Inference Rule</dfn> (or "Rule of Inference") to be
+an $(n+1)$-ary second-order predicate written
+\[\frac{J_{1}\quad\cdots\quad J_{n}}{J}\hbox{rule name}\]
+The name for the rule is written to the right. We call:
+</p>
+
+<ul><li>
+<p>
+the horizontal line the "inference line";
+</p>
+</li>
+<li>
+<p>
+the judgements above the inference line $J_{1}$, &hellip;, $J_{n}$ are
+called "premises"
+</p>
+</li>
+<li>
+<p>
+the judgement $J$ below the inference line is the "conclusion".
+</p>
+</li>
+</ul>
+
+<p>
+The rule for working with inference rules: the conclusion holds
+whenever all the premises hold. That is to say, the premises must be
+<i>sufficient</i>.
+</p>
+
+<p>
+Further, if there are any metavariables (variables in the
+metalanguage) parametrizing the judgement forms, then we call this a
+<dfn>Schema</dfn> or <dfn>Scheme</dfn>. When a schema is applied to
+phrases from the object language, we call the result an
+<dfn>Instantiation</dfn> (or "instance") of the schema.
+</p>
+
+<p>
+When there are $n=0$ premises, we call the inference rule either an
+<dfn>Axiom</dfn> (or if there are metavariables present, an <dfn>Axiom Schema</dfn>).
+<br>(End of Definition 2)
+</div>
+</p>
+
+<p>
+<div class="proclaim example">
+<b>Example 2.1:</b> The familiar <a href="https://en.wikipedia.org/wiki/Modus_ponens">modus ponens</a>
+is an inference rule schema in most proof calculi for logic
+\[\frac{(A\implies B)\mathsf{true},\quad A~\mathsf{true}}{B~\mathsf{true}}\hbox{MP}(A,B)\]
+where the rule name "MP" is explicitly parametrized by the
+metavariables $A$ and $B$ ranging over the object language.
+</div>
+</p>
+
+<p>
+<div class="proclaim example">
+<b>Example 2.2:</b> We can describe proof steps for formal proofs using
+inference rules.
+</p>
+
+<p>
+For example, the <a href="https://mizar.uwb.edu.pl/">Mizar</a> proof step <code>let</code>
+is an inference rule of the form
+\[\frac{\Gamma,y\vdash P[y]~\mathsf{true}}{\Gamma\vdash\forall x,P[x]~\mathsf{true}}~\mathtt{let}~y\]
+where the judgements are of the form $\Gamma\vdash\varphi~\mathsf{true}$
+for some finite list of formulas $\Gamma$ and a formula $\varphi$,
+and interpreted as "Assuming the formulas appearing in $\Gamma$ are
+all true, then we have $\varphi$ also be true".
+</div>
+</p>
+
+<p>
+&hellip;
+</p>
+
+<p>
+That's enough examples for the moment.
+</p>
+
+<p>
+We see that these examples suggest an inference rule tells us <i>how to use</i>
+our object language. Modus ponens tells us how to use the implication
+connective in the object language. This gives <i>meaning</i> to the object
+language, in the sense of Wittgenstein's "the meaning of a word is its
+use in the language".
+</p>
+
+<p>
+We can compose inference rules to form a <i>tree</i> describing "legal"
+judgements.
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 3:</b> <i>Derivation trees</i>.<br>
+In a system of judgements and inference rules, a <dfn>Derivation</dfn>
+is inductively defined by:
+</p>
+
+<ol><li>
+<p>
+If we have an axiom $\displaystyle\frac{}{J}$, then it is also a
+derivation of $J$
+</p>
+</li>
+<li>
+<p>
+If we have an inference rule
+\[\frac{J_{1}\quad\cdots\quad J_{n}}{J}\]
+and if $\mathcal{D}_{1}$ is a derivation of $J_{1}$, &hellip;,
+and $\mathcal{D}_{n}$ is a derivation of $J_{n}$, then we may form
+a derivation of $J$ written as
+\[\frac{\mathcal{D}_{1},\quad\cdots\quad\mathcal{D}_{n}}{J}\]
+</p>
+</li>
+</ol>
+
+<p>
+Informally, these derivations provide <i>evidence</i> for its conclusion
+$J$ (and most Mathematicians recognize these as "proof trees").
+<br>(End of Definition 3)
+</div>
+</p>
+
+<h2>Hypothetical Judgements</h2>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 4:</b> <i>Derivable judgements</i>.<br>
+In a system of judgements and inference rules $\mathcal{R}$,
+a <dfn>Derivable Judgement</dfn>
+$J$ is any judgement such that there exists a derivation $\mathcal{D}$
+for it.
+</p>
+
+<p>
+The notation to indicate that $J$ is a derivable judgement is
+\[\vdash_{\mathcal{R}}J\]
+and if the system of inference rules is clear from context, we can
+just write $\vdash J$ instead.
+<br>(End of Definition 4)
+</div>
+</p>
+
+<p>
+In logic, a derivable judgement is better known as "provable" (since
+we only know there exists a derivation, and we don't necessarily
+<i>have</i> a derivation).
+</p>
+
+<p>
+<div class="proclaim remark">
+<b>Remark:</b> <i>Turnstile notation</i>.<br>
+The symbol $\vdash$ is called the turnstile. Frege introduced it in
+his <cite class="book">Begriffsschrift</cite> and then Russell and
+Whitehead incorporated it in <cite class="book">Principia Mathematica</cite>.
+Then it was grandfathered into Mathematical Logic.
+</p>
+
+<p>
+Unfortunately, it is also one of the most overloaded symbols in the
+Foundations of Mathematics. Care must be taken when encountering
+turnstiles "in the wild".
+<br>(End of Remark)
+</div>
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 5:</b> <i>Hypothetical Judgements and Validity</i>.<br>
+In a system $\mathcal{R}$ of judgements and inference rules,
+let $J_{1}$, &hellip;, $J_{n}$ be $n\geq0$ judgements and let $J$ be a
+judgement. We define a <dfn>Hypothetical Judgement</dfn>, denoted
+$J_{1},\cdots,J_{n}\vdash_{\mathcal{R}}J$, to reflect the assertion
+there exists a derivation $\mathcal{D}$ of $J$ using the modified
+system with inference rules 
+\[\mathcal{R}' = \{\frac{}{J_{1}},\dots,\frac{}{J_{n}}\}\cup\mathcal{R}\]
+obtained by adding axioms for $J_{1}$, &hellip;, $J_{n}$.
+</p>
+
+<p>
+When we have a derivation $\mathcal{D}$ in our hands (not just our
+heads) for the hypothetical judgement $J_{1},\dots,J_{n}\vdash_{\mathcal{R}} J$ then
+we call the hypothetical judgement <dfn>Valid</dfn> (in analogy to the
+situation in logic where a valid argument properly applies inference
+rules, but may not have true premises).
+</p>
+
+<p>
+Observe when $n=0$ we recover the notion of a "derivable judgement".
+<br>(End of Definition 5)
+</div>
+</p>
+
+<p>
+The main properties which can be proven for hypothetical judgements
+include
+</p>
+
+<ul><li>
+<p>
+Reflexivity: for any list of judgements $\Gamma$, for any judgement
+$J$, we have $\Gamma,J\vdash J$
+</p>
+</li>
+<li>
+<p>
+Transitivity: for any list of judgements $\Gamma$, for any judgements
+$J$ and $K$, if we have $\Gamma,J\vdash K$ and also $\Gamma\vdash J$,
+then we have $\Gamma\vdash K$
+</p>
+</li>
+<li>
+<p>
+Weakening: for any list of judgements $\Gamma$, for any judgements
+$J$ and $K$, if we have $\Gamma\vdash J$,
+then we also have $\Gamma,K\vdash J$ &mdash; i.e., "adding unnecessary
+hypotheses changes nothing"
+</p>
+</li>
+<li>
+<p>
+Stability: let $\mathcal{R}$ and $\mathcal{R}'$ are finite sets of
+inference rules.
+</p>
+
+<ol><li>
+<p>
+If $\vdash_{\mathcal{R}}J$ is a derivable judgement,
+then $\vdash_{\mathcal{R}\cup\mathcal{R}'}J$ is a derivable
+judgement.
+</p>
+</li>
+<li>
+<p>
+For any finite list of judgements $\Gamma$,
+if $\Gamma\vdash_{\mathcal{R}}J$ is a hypothetical judgement,
+then $\Gamma\vdash_{\mathcal{R}\cup\mathcal{R}'}J$ is a
+hypothetical judgement.
+</p>
+</li>
+</ol>
+</li>
+</ul>
+
+<p>
+All these results combine to tell us a valid derivable judgement
+$\vdash_{\mathcal{R}}J$ is valid in the family of systems with
+inference rules $\mathcal{R}\cup\mathcal{R}'$ obtained by adjoining
+more inference rules.
+</p>
+
+<p>
+It is natural to ask: which inference rules $\mathcal{R}'$ will leave
+the set of valid derivable judgements invariant?
+</p>
+
+<h2>Derivable and Admissible Inference Rules</h2>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 6:</b> <i>Derivable inference rules</i>.<br>
+Let $\mathcal{J}$ be a finite list of judgement forms and
+$\mathcal{R}$ a finite set of inference rule schemas.
+We call an inference rule
+\[\frac{J_{1}\quad\cdots\quad J_{n}}{J}\]
+a <dfn>Derivable Inference Rule</dfn> (or "deducible inference rule")
+if there exists a valid hypothetical judgement $J_{1},\cdots,J_{n}\vdash_{\mathcal{R}}J$.
+<br>(End of Definition 6)
+</div>
+</p>
+
+<p>
+If we want to <i>prove</i> an inference rule is derivable, then we need to
+prove the associated hypothetical judgement is valid. That amounts to
+finding a derivation using the augmented inference rules $\mathcal{R}'=\{\overline{J_{1}},\dots,\overline{J_{n}}\}\cup\mathcal{R}$.
+</p>
+
+<p>
+We should think of a derivable inference rule as an "abbreviation" for
+a derivation.
+</p>
+
+<p>
+<div class="proclaim theorem">
+<b>Theorem 7:</b> <i>Adjoining derivable inference rules is safe</i>.<br>
+Let $R$ be a derivable inference rule relative to the system of
+judgements $\mathcal{J}$ and inference rules $\mathcal{R}$.
+Then any derivable judgement $\vdash_{\mathcal{R}}J$ is valid if and
+only if $\vdash_{\mathcal{R}\cup\{R\}}J$ is valid.
+</p>
+
+<p>
+Conversely, any derivable judgement $\vdash_{\mathcal{R}\cup\{R\}}J$
+is valid if and only if $\vdash_{\mathcal{R}}J$ is valid.
+<br>(End of Theorem 7)
+</div>
+</p>
+
+<p>
+Or more succinctly, derivable inference rules do not affect valid
+derivable judgements.
+</p>
+
+<p>
+Is this the only way to leave the set of valid derivable judgements
+invariant?
+</p>
+
+<p>
+There's another way we could do this: if we can demonstrate that given
+any derivations for all the premises of a proposed inference rule,
+then there exists a derivation of its conclusion. That is to say,
+given evidence the premise holds, we can construct evidence for the
+conclusion to hold. This gives us the following definition.
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 8:</b> <i>Admissible inference rules</i><br>
+Let $\mathcal{J}$ be a finite list of judgement forms and
+$\mathcal{R}$ a finite set of inference rule schemas.
+We call an inference rule
+\[\frac{J_{1}\quad\cdots\quad J_{n}}{J}\]
+a <dfn>Admissible Inference Rule</dfn> (or a "sound inference rule")
+if whenever we have derivations $\mathcal{D}_{1}$ of $J_{1}$, &hellip;,
+and $\mathcal{D}_{n}$ of $J_{n}$,
+then there exists a derivation $\mathcal{D}$ of $J$.
+<br>(End of Definition 8)
+</div>
+</p>
+
+<p>
+Observe if one of the premises $J_{i}$ is always false, then the
+inference rule is vacuously admissible. But this is not terribly
+interesting. 
+</p>
+
+<p>
+We can also observe that every derivable inference rule is also an
+admissible inference rule. This tells us that admissible inference rules
+<i>generalize</i> the notion of derivable inference rules.
+</p>
+
+<p>
+However, not every admissible inference rule is a derivable inference rule.
+A counter-example: Harrop's rule in Intuitionistic Logic is admissible
+but not derivable.
+</p>
+
+<p>
+An analogous result as Theorem 7 holds for admissible inference rules.
+We will not get bogged down with this, but the interested reader can
+consult the first chapter of Bob Harper's 
+<cite class="book">Practical Foundations for Programming Languages</cite>
+(Second ed., CUP, 2016) for the discussion and proof.
+</p>
+
+<h2>Deductive Systems</h2>
+
+<p>
+Some people define:
+</p>
+
+<ol><li>
+<p>
+A "Deductive System" to consist of a system of judgement forms and inference rules. That's it, nothing more.
+</p>
+</li>
+<li>
+<p>
+A "Formal System" is a deductive system such that we may equip it with an "effective" procedure for generating valid derivations in a technical sense (we have a Turing machine capable of doing this).
+</p>
+</li>
+</ol>
+
+<p>
+Depending on the strength of the metatheory, it may not be possible to
+have an effective method producing derivations.
+</p>
+
+<p>
+Why is there this requirement of some "effective" procedure yielding
+derivations? It has its roots tracing back to <a href="https://plato.stanford.edu/entries/hilbert-program/">Hilbert's programme</a>
+where we work with a "finitary metatheory" and encode judgements as
+"arithmetical equations" in the finitary metatheory. Hilbert's system
+had only one inference rule, so there was only one way to generate new
+results from old.
+</p>
+
+<p>
+When Gödel proved his incompleteness theorems, his results concerned
+Formal Systems in this technical sense (which was <i>effectively</i> the
+last nail in the coffin for Hilbert's programme).
+</p>
+
+<h2>Concluding Remarks</h2>
+
+<p>
+We may describe deductive systems (judgements, inference rules, etc.)
+using category theory. For a review on this subject, see (for example)
+Greta Coraglia and Ivan Di Liberti's "Context, Judgement, Deduction" (<a href="https://arxiv.org/abs/2111.09438">arXiv:2111.09438</a>).
+</p>
+
+<p>
+Computer scientists have developed a rich family of judgements for
+reasoning about computer programs. Bob Harper's 
+<cite class="book">Practical Foundations for Programming Languages</cite>
+(Second ed., CUP, 2016) explores this in rigorous detail.
+</p>
+
+<p>
+We can describe programming languages using deductive systems.
+</p>
+
+<p>
+We can use these to prove properties about computer programs written
+in these languages.
+</p>
+
+<p>
+That's one of the goals for our Yak Shaving endeavour.
+</p>
+
+<h3>History</h3>
+
+<p>
+The notion of a "judgement" in logic can be traced back to Immanuel Kant.
+Frege borrowed it for his work on logic and the foundations of
+Mathematics, and then it continued on implicitly in Mathematical Logic 
+throughout the 20th century.
+</p>
+
+<p>
+Hegel's <cite class="book">Science of Logic</cite> (vol. II, part 1,
+chapter 2) points out that the etymology of "judgement" [German:
+<i>Urteil</i>] reflects the primary ["<i>Erste</i>", forming prefixes "<i>Er-</i>" or "<i>Ur-</i>"]
+role as a building block in deduction, while simultaneously having a
+clear division ["<i>Teilung</i>"] into subject and "existing in <i>someone's</i>
+head" a predicate. This means Hegel was probably the first person to
+recognize judgement forms are predicates in the metalanguage, and said
+it as obscurantistically as possible.
+</p>
+
+<p>
+Russell and Whitehead's <cite class="book">Principia Mathematica</cite> 
+(CUP, 1910) called judgements "assertions".
+</p>
+
+<p>
+Per Martin-Löf's work (starting with his 1984 lectures on
+Intuitionistic Type Theory) introduced judgements as we would now
+recognize them.
+</p>
+
+<p>
+<footer>
+<b>[</b> <a href="./index.html">Back</a> <b>]</b>
+</footer>
+</p>
+
+</main>
+
+</body>
+</html>

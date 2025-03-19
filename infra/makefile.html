@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
 <title>Makefile for YSG</title>
-<link type="text/css" rel="stylesheet" href="../css/style.css" />
+<link type="text/css" rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
 
 <!-- The loading of KaTeX is deferred to speed up page rendering -->
@@ -83,6 +83,12 @@ Towards that end, the first line of the <code>Makefile</code> will indicate we
 are working with this portable standard.
 </p>
 
+<p>
+(Plus, working on Ubuntu, you can check it against BSD Make by
+installing the <code>bmake</code> package; on a Debain system, you can also check
+it against <code>fmake</code> if you install the <code>freebsd-buildutils</code> package.)
+</p>
+
 <pre data-lang="Makefile" class="src">.POSIX:</pre>
 
 <h2>YSG Directory Location</h2>
@@ -111,9 +117,26 @@ extracted CSS) into a <code>pages</code> directory.
 </p>
 
 <pre data-lang="Makefile" class="src">MD=&dollar;&#xfeff;(YSG)/md/md
-OUTDIR=&dollar;&#xfeff;(YSG)/pages
-MDFLAGS=--katex --css &dollar;&#xfeff;(OUTDIR)/css
+PAGES=&dollar;&#xfeff;(YSG)/pages
+SITE=&dollar;&#xfeff;(YSG)/site
+MDFLAGS=--katex --css &dollar;&#xfeff;(PAGES)/css
 TANGLE=&dollar;&#xfeff;(YSG)/tangle-md/tangle-md</pre>
+
+<p>
+We will also be generating HTML from subdirectories. The rules
+describing this are the same, and can be streamlined using a single
+rule and pattern matching.
+</p>
+
+<p>
+This requires us to introduce a variable for all the subdirectories we
+will be using. We can do this by assigning the variable to be equal to
+the result of running <code>ls -d */</code> (matching all subdirectories,
+including the postfix slash) and pipe it through the <a href="https://pubs.opengroup.org/onlinepubs/9799919799/utilities/cut.html">cut utility</a> to
+remove the trailing backslash from the directory names.
+</p>
+
+<pre data-lang="Makefile" class="src">SUBDIRS!= ls -d */ | cut -f1 -d&apos;/&apos;</pre>
 
 <h2>Default build rule</h2>
 
@@ -153,10 +176,10 @@ steps. Similarly, if we add any subdirectories, we should add a rule
 to "compile" them into HTML artifacts.
 </p>
 
-<pre data-lang="Makefile" class="src">all: extract_css infra
-	touch &dollar;&#xfeff;(OUTDIR)/.nojekyll
-	&dollar;&#xfeff;(MD) &dollar;&#xfeff;(MDFLAGS) --output &dollar;&#xfeff;(OUTDIR) index.md
-	&dollar;&#xfeff;(MD) &dollar;&#xfeff;(MDFLAGS) --output &dollar;&#xfeff;(OUTDIR) about.md</pre>
+<pre data-lang="Makefile" class="src">all: extract_css &dollar;&#xfeff;(SUBDIRS)
+	touch &dollar;&#xfeff;(PAGES)/.nojekyll
+	&dollar;&#xfeff;(MD) &dollar;&#xfeff;(MDFLAGS) --output &dollar;&#xfeff;(PAGES) index.md
+	&dollar;&#xfeff;(MD) &dollar;&#xfeff;(MDFLAGS) --output &dollar;&#xfeff;(PAGES) about.md</pre>
 
 <h2>Extracting CSS</h2>
 
@@ -178,38 +201,75 @@ is a Makefile convention, and demanded <b>only by stylistic concerns
 rendering the HTML artifact.</b>
 </p>
 
+<p>
+Also note: as a "postcondition" for this rule, the <code>pages/</code> directory
+is guaranteed to exist, so we can extract HTML to it safely.
+</p>
+
 <pre data-lang="Makefile" class="src">.PHONY: extract_css
 extract_css:
-	mkdir -p &dollar;&#xfeff;(OUTDIR)/css
-	&dollar;&#xfeff;(TANGLE) --output=&dollar;&#xfeff;(OUTDIR)/css &bsol;&#xfeff;
+	mkdir -p &dollar;&#xfeff;(PAGES)/css
+	&dollar;&#xfeff;(TANGLE) --output=&dollar;&#xfeff;(PAGES)/css &bsol;&#xfeff;
 --extract style.css &bsol;&#xfeff;
 infra/css/style.md</pre>
 
-<h2>Generating HTML documenting the infrastructure</h2>
+<h2>Generating HTML for each subdirectory</h2>
 
 <p>
-Now, we want to generate the HTML artifact for the infrastructure
-subdirectory. 
+Now, we want to generate the HTML artifact for each subdirectory. 
+The name of the subdirectory being processed is stored in the <code>&dollar;&#xfeff;@</code>
+variable. 
 </p>
 
 <p>
-This requires building the <code>pages/infra/</code> directory if it is absent.
+This requires building the <code>pages/&dollar;&#xfeff;@/</code> directory if it is absent.
 </p>
 
 <p>
 Then we can invoke our Markdown engine to recursively generate HTML
-artifacts for everything found in the <code>infra/</code> literate code
+artifacts for everything found in the <code>&dollar;&#xfeff;@</code> literate code
 directory, including subdirectories.
 </p>
 
-<pre data-lang="Makefile" class="src">.PHONY: infra
-infra: 
-	mkdir -p &dollar;&#xfeff;(OUTDIR)/infra
-	&dollar;&#xfeff;(MD) &dollar;&#xfeff;(MDFLAGS) --output &dollar;&#xfeff;(OUTDIR)/infra --r infra</pre>
+<p>
+The <code>.PHONY: &dollar;&#xfeff;(SUBDIRS)</code> trick I learned from <a href="https://stackoverflow.com/a/3095711">Stackoverflow</a>.
+</p>
+
+<pre data-lang="Makefile" class="src">.PHONY: &dollar;&#xfeff;(SUBDIRS)
+&dollar;&#xfeff;(SUBDIRS):
+	mkdir -p &dollar;&#xfeff;(PAGES)/&dollar;&#xfeff;@
+	&dollar;&#xfeff;(MD) &dollar;&#xfeff;(MDFLAGS) --output &dollar;&#xfeff;(PAGES)/&dollar;&#xfeff;@ --r &dollar;&#xfeff;@</pre>
+
+<h2>Extracting this Makefile as a Makefile</h2>
+
+<p>
+If we want to extract the code contained in this literate program, we
+should have a rule allowing it.
+</p>
+
+<pre data-lang="Makefile" class="src">extract_makefile:
+	&dollar;&#xfeff;(TANGLE) --output=&dollar;&#xfeff;(SITE) --extract Makefile &bsol;&#xfeff;
+infra/makefile.md</pre>
+
+<h2>"Clean" target</h2>
+
+<p>
+It is considered "good practice" to have a <code>clean</code> rule, which will
+nuke all the generated output. This allows us to start fresh.
+</p>
+
+<p>
+For us, this is simply "delete the <code>&dollar;&#xfeff;(PAGES)</code> visible subdirectories (if any
+exist) plus html files".
+</p>
+
+<pre data-lang="Makefile" class="src">clean:
+	rm -rf &dollar;&#xfeff;(PAGES)/*/
+	rm -rf &dollar;&#xfeff;(PAGES)/*.html</pre>
 
 <p>
 <footer>
-<b>[</b> <a href="../index.html">Up</a> <b>|</b> <a href="./style.html">Next</a> <b>]</b>
+<b>[</b> <a href="../index.html">Up</a> <b>]</b>
 </footer>
 </p>
 

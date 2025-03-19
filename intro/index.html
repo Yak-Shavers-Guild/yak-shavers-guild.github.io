@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Introduction - YSG</title>
+<link type="text/css" rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+onload="renderMathInElement(document.body);"></script>
+<script>
+    // https://github.com/KaTeX/KaTeX/blob/main/docs/autorender.md
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            // customised options
+            // auto-render specific keys, e.g.:
+                delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: "\begin{equation}", right: "\end{equation}", display: true},
+                {left: "\begin{align}", right: "\end{align}", display: true},
+            ],
+            // rendering keys, e.g.:
+            throwOnError : false
+        });
+    });
+ </script>
+
+</head>
+<body>
+<main>
+
+<p>
+<nav class="crumbs">
+</p>
+
+<ul><li>
+<p>
+<a href="../index.html">ysg</a>
+</p>
+</li>
+<li>
+<p>
+introduction
+</p>
+</li>
+</ul>
+
+<p>
+</nav>
+</p>
+
+<h1>Introduction to Yak Shavers Guild</h1>
+
+<p>
+We are building proof assistants because it's fun.
+</p>
+
+<p>
+A proof assistant may be thought of as a sort of "interpreter" for a
+particular foundations of mathematics. But we can use proof assistants
+for verifying a computer program implements a specification, too.
+</p>
+
+<p>
+From a different perspective, we could look at proof assistants as
+studying the foundations of mathematics using the tools of computer
+science. 
+</p>
+
+<p>
+The goal of this "chapter" is to discuss some of the more
+<i>philosophical</i> aspects of this endeavour, as well as place
+discussions of implicit notions like "formal language", "judgements",
+and so on.
+</p>
+
+<p>
+<b>Assumption:</b> We will be assuming some level of Mathematical
+maturity. Specifically we assume the reader has some level of
+familiarity with basic set theory and logic at the level of a mediocre
+upper-division undergraduate at university studying Mathematics.
+</p>
+
+<ul><li>
+<p>
+<a href="language.html">Language</a>
+</p>
+</li>
+<li>
+<p>
+<a href="deductive-system.html">Deductive Systems</a> as described in terms of
+"judgements" and "inference rules"
+</p>
+</li>
+<li>
+<p>
+Type Theory
+</p>
+
+<ul><li>
+<p>
+<a href="untyped-lambda/index.html">Untyped Lambda Calculus</a>
+</p>
+
+<ul><li>
+<p>
+<a href="untyped-lambda/syntax.html">Syntax</a> introduces the underlying
+formal language
+</p>
+</li>
+<li>
+<p>
+<a href="untyped-lambda/operational-semantics.html">Operational Semantics</a>
+discusses "how to work" with untyped lambda calculus
+</p>
+</li>
+<li>
+<p>
+Church&ndash;Rosser theorem
+</p>
+</li>
+<li>
+<p>
+<a href="untyped-lambda/church-encoding.html">Church encoding</a> for describing how
+to do arithmetic and "program" with untyped lambda calculus
+</p>
+</li>
+<li>
+<p>
+<a href="untyped-lambda/computation.html">Computation</a> can be treated as logically
+equivalent to Turing machines or untyped lambda calculus.
+</p>
+</li>
+</ul>
+</li>
+<li>
+<p>
+<a href="typed-arithmetic.html">Typed Arithmetic</a>
+</p>
+</li>
+<li>
+<p>
+Simply-Typed Lambda Calculus
+</p>
+</li>
+<li>
+<p>
+System F
+</p>
+</li>
+</ul>
+</li>
+<li>
+<p>
+Logic
+</p>
+
+<ul><li>
+<p>
+Propositional Logic
+</p>
+</li>
+<li>
+<p>
+First-Order Logic
+</p>
+</li>
+</ul>
+</li>
+</ul>
+
+</main>
+
+</body>
+</html>

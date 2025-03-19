@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
-<title>Infrastucture - YSG</title>
-<link type="text/css" rel="stylesheet" href="../css/style.css">
+<title>Untyped Lambda Calculus</title>
+<link type="text/css" rel="stylesheet" href="../../css/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
 
 <!-- The loading of KaTeX is deferred to speed up page rendering -->
@@ -43,12 +43,17 @@ onload="renderMathInElement(document.body);"></script>
 
 <ul><li>
 <p>
-<a href="../index.html">ysg</a>
+<a href="../../index.html">ysg</a>
 </p>
 </li>
 <li>
 <p>
-infrastructure
+<a href="../index.html">introduction</a>
+</p>
+</li>
+<li>
+<p>
+untyped lambda calculus
 </p>
 </li>
 </ul>
@@ -57,29 +62,71 @@ infrastructure
 </nav>
 </p>
 
-<h1>Infrastructure of the Yak Shavers Guild</h1>
+<h1>Untyped Lambda Calculus</h1>
 
 <p>
-We build the Yak Shaves Guild using a literate programming toolkit we
-built from scratch.
+Lambda calculus is a term rewriting system which describes the basic
+mechanism of substituting expressions for variables inside another
+expression. 
+</p>
+
+<p>
+This serves as the "floor model" for many type theories, which are
+used in programming languages and proof assistants.
+</p>
+
+<p>
+Untyped lambda calculus also has an intimate relation to the concept
+of "computation" (used in computer science). We will explore this
+<a href="computation.html">elsewhere</a>. 
+</p>
+
+<p>
+<b>Contents</b>
 </p>
 
 <ul><li>
 <p>
-<a href="./makefile.html">Makefile</a> for generating the static HTML artifacts
-for Github and Codeberg pages
+<a href="syntax.html">Syntax</a> introduces the underlying formal language
 </p>
 </li>
 <li>
 <p>
-<a href="./css/index.html">CSS code</a>
+<a href="operational-semantics.html">Operational Semantics</a> treats untyped
+lambda calculus as a formal system
+</p>
+</li>
+<li>
+<p>
+<a href="church-encoding.html">Church Encodings</a> describes how we can do
+arithmetic and "program" with untyped lambda calculus
+</p>
+</li>
+<li>
+<p>
+<a href="computation.html">Computation</a> discusses the Church and Turing
+theses &mdash; the punchline: untyped lambda calculus can describe our
+informal notions of "computing"
 </p>
 </li>
 </ul>
 
 <p>
+<b>References</b>
+</p>
+
+<p>
+I relied on Henk Barendregt's classic <cite class="book">The Lambda
+Calculus, Its Syntax and Semantics</cite> (College Publications
+paperback reprint, 2012) as well as healthy doses
+of J. Roger Hindley and Jonathan P. Seldin's <cite
+class="book">Lambda-Calculus and Combinators &mdash; An Introduction</cite>
+(CUP, 2008, <a href="https://doi.org/10.1017/CBO9780511809835">doi:10.1017/CBO9780511809835</a>).
+</p>
+
+<p>
 <footer>
-<b>[</b> <a href="../index.html">Back</a> <b>]</b>
+<b>[</b> <a href="../index.html">Up</a> <b>|</b> <a href="syntax.html">Next</a> <b>]</b>
 </footer>
 </p>
 

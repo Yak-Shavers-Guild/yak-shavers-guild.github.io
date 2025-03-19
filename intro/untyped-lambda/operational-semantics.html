@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Operational Semantics of Untyped Lambda Calculus</title>
+<link type="text/css" rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+onload="renderMathInElement(document.body);"></script>
+<script>
+    // https://github.com/KaTeX/KaTeX/blob/main/docs/autorender.md
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            // customised options
+            // auto-render specific keys, e.g.:
+                delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: "\begin{equation}", right: "\end{equation}", display: true},
+                {left: "\begin{align}", right: "\end{align}", display: true},
+            ],
+            // rendering keys, e.g.:
+            throwOnError : false
+        });
+    });
+ </script>
+
+</head>
+<body>
+<main>
+
+<p>
+<nav class="crumbs">
+</p>
+
+<ul><li>
+<p>
+<a href="../../index.html">ysg</a>
+</p>
+</li>
+<li>
+<p>
+<a href="../index.html">introduction</a>
+</p>
+</li>
+<li>
+<p>
+<a href="./index.html">untyped lambda calculus</a>
+</p>
+</li>
+<li>
+<p>
+operational semantics
+</p>
+</li>
+</ul>
+
+<p>
+</nav>
+</p>
+
+<h1>Operational Semantics of Untyped Lambda Calculus</h1>
+
+<p>
+Now we can offer a <a href="../deductive-system.html">deductive system</a> for the
+"operational semantics" of lambda calculus. There is a single judgment
+describing $\beta$ reduction, denoted $e\to_{\beta}e'$ which
+rewrites $e$ (if possible).
+</p>
+
+<h2>Substitution</h2>
+
+<p>
+Before we can jump to it, we need to define the process of
+substitution. We denote "substitute $e$ for each instance of the free
+variable $x$ in the expression $e'$" as $e'[e/x]$ (but other variants
+are common in the literature, like $[x\e]e'$ or $e'[x:=e]$ or whatever).
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 1:</b> <i>Capture-free substitution</i><br>
+Let $x$ be a variable, let $e$ and $e'$ be lambda-expressions.
+We define the <dfn>Capture-Free Substitution</dfn> of $e$ for $x$
+in $e'$ to be a lambda-expression such that:
+</p>
+
+<ul><li>
+<p>
+<b>Variables:</b>
+</p>
+
+<ul><li>
+<p>
+$x[e/x] = e$ &mdash; this justifies the notation, it "looks like"
+$a(b/a)=b$ in elementary algebra
+</p>
+</li>
+<li>
+<p>
+$y[e/x] = y$ if $y\neq x$
+</p>
+</li>
+</ul>
+</li>
+<li>
+<p>
+<b>Abstraction:</b> This boils down to several cases, sadly&hellip;
+</p>
+
+<ul><li>
+<p>
+$(\lambda x\ldotp e')[e/x] = \lambda x\ldotp e'$ because we cannot
+replace bound variables
+</p>
+</li>
+<li>
+<p>
+If $x\neq y$ and $y\notin\operatorname{FV}(e)$,
+then $(\lambda y\ldotp e')[e/x] = \lambda y\ldotp (e'[e/x])$
+</p>
+</li>
+<li>
+<p>
+If $\neq y$ and $y\in\operatorname{FV}(e)$,
+and if $z\notin(\operatorname{FV}(e)\cup\operatorname{FV}(e')\cup\{x\})$ is a fresh variable in $e$ and $e'$,
+then $(\lambda y\ldotp e')[e/x] = \lambda z\ldotp (M[z/y])[e'/x]$
+</p>
+</li>
+</ul>
+</li>
+<li>
+<p>
+<b>Application:</b> $(e_{1}~e_{2})[e/x] = (e_{1}[e/x])~(e_{2}[e/x])$
+</p>
+</li>
+</ul>
+
+<p>
+And that's it.
+<br>(End of Definition 1)
+</div>
+</p>
+
+<h2>Alpha Congruence</h2>
+
+<p>
+We assume that bound-variables can be freely renamed as needed. This
+is an equivalence relation conventionally called alpha-congruence in
+the literature. We can define it using contexts.
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 2:</b> <i>Change of bound variables</i><br>
+A <dfn>Change of Bound Variables</dfn> in $e$ replaces a subexpression
+$\lambda x\ldotp e'$ with $\lambda y\ldotp (e'[y/x])$ where
+$y\notin\operatorname{Sub}(e')$ is fresh.
+<br>(End of Definition 2)
+</div>
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 3:</b> <i>Alpha congruence</i><br>
+Let $e_{1}$ and $e_{2}$ be two lambda-expressions.
+We say that $e_{1}$ is <dfn>Alpha Congruent</dfn> to $e_{2}$ if we can
+obtain $e_{2}$ by a finite series of changes of bound variables
+applied to $e_{1}$ &mdash; and we denote this by
+$e_{1}\cong_{\alpha}e_{2}$ or $e_{1}\equiv_{\alpha}e_{2}$ (though the
+literature has its fair share of variant notations).
+<br>(End of Definition 3)
+</div>
+</p>
+
+<h2>Full Beta Reduction</h2>
+
+<p>
+Now we can define beta reduction. Well, there are many different
+semantics we could choose for beta reduction. Let us discuss <i>full</i>
+beta reduction.
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 4:</b> <i>Full beta reduction</i><br>
+We define the judgement of <dfn>Full Beta Reduction</dfn>, denoted
+$e_{1}\to_{\beta}e_{2}$ by the rules:
+\[\frac{e_{1}\to_{\beta}e_{1}'}{e_{1}~e_{2}\to_{\beta}e_{1}'~e_{2}}\]
+\[\frac{e_{2}\to_{\beta}e_{2}'}{e_{1}~e_{2}\to_{\beta}e_{1}~e_{2}'}\]
+\[\frac{e\to_{\beta} e'}{\lambda x\ldotp e\to_{\beta}\lambda x\ldotp e'}\]
+\[\frac{}{(\lambda x\ldotp e_{1})~e_{2}\to_{\beta}e_{1}[e_{2}/x]}\]
+<br>(End of Definition 4)
+</div>
+</p>
+
+<p>
+Most programming languages based on lambda calculus do not use this,
+it's <i>too much</i>. 
+</p>
+
+<h2>Call-by-value beta reduction</h2>
+
+<p>
+One approach which programming languages take is to avoid beta
+reduction in the body of a lambda abstraction &mdash; that is to say, we
+do not beta reduce $\lambda x\ldotp e$ regardless whether we could
+beta reduce $e$ or not.
+</p>
+
+<p>
+We describe this by introducing a new subset of lambda-expressions
+called "values" which cannot be reduced any farther. For untyped
+lambda calculus, this is just the set of all lambda abstractions.
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 5:</b> <i>Values in untyped lambda calculus</i><br>
+We define the set of <dfn>Values</dfn> of untyped lambda calculus to
+be the lambda expressions described by the pseudo-BNF grammar
+\[ v ::= \lambda x\ldotp e\]
+That is to say, it's the set of all lambda abstractions.
+<br>(End of Definition 5)
+</div>
+</p>
+
+<p>
+We then define the call-by-value beta reduction judgement.
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 6:</b> <i>Call-by-value beta reduction</i><br>
+We define the judgement for <dfn>Call-by-Value Beta Reduction</dfn>
+denoted $e_{1}\to_{cbv}e_{2}$ by the rules
+\[\frac{e_{1}\to_{cbv}e_{1}'}{e_{1}~e_{2}\to_{cbv}e_{1}'~e_{2}}\]
+\[\frac{e_{2}\to_{cbv}e_{2}'}{v~e_{2}\to_{cbv}v~e_{2}'}\]
+\[\frac{}{(\lambda x\ldotp e)~v\to_{cbv}e[v/x]}\]
+where $v$ ranges over all values.
+<br>(End of Definition 6)
+</div>
+</p>
+
+<p>
+This is how <a href="../../sml/index.html">Standard ML</a> behaves.
+</p>
+
+<h2>Call-by-Name Beta Reduction</h2>
+
+<p>
+There's (at least) one middle ground between full beta reduction and
+call-by-value beta reduction: apply the function as soon as possible,
+even if the argument supplied is not a value.
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 7:</b> <i>Call-by-Name Beta Reduction</i><br>
+We define the judgement of <dfn>Call-by-Name Beta Reduction</dfn>
+denoted $e_{1}\to_{cbn}e_{2}$ by the rules
+\[\frac{e_{1}\to_{cbn} e_{1}'}{e_{1}~e_{2}\to_{cbn} e_{1}'~e_{2}}\]
+\[\frac{}{(\lambda x\ldotp e_{1})e_{2}\to_{cbn}e_{1}[e_{2}/x]}\]
+<br>(End of Definition 7)
+</div>
+</p>
+
+<p>
+Wait, we've introduced three different ways to perform beta
+reduction. What's the difference? Are they all the same?
+</p>
+
+<p>
+It's when we have problematic lambda-expressions there's a difference
+between the semantics. For example: $\Omega = (\lambda x\ldotp x~x)(\lambda y\ldotp y~y)$.
+Evaluate this. In one step, we have (performing beta reduction on the
+first line, then substitutions in the next two lines):
+\[\begin{array}{rcl}
+(\lambda x\ldotp x~x)(\lambda y\ldotp y~y)&\to&(x[(\lambda y\ldotp y~y)/x])~(x[(\lambda y\ldotp y~y)/x])\\
+&=&(\lambda y\ldotp y~y)~(x[(\lambda y\ldotp y~y)/x])\\
+&=&(\lambda y\ldotp y~y)~(\lambda y\ldotp y~y)\\
+&=_{\alpha}&(\lambda x\ldotp x~x)~(\lambda y\ldotp y~y)\\
+&=&\Omega
+\end{array}\]
+Hence under all the possible ways to perform beta reduction, we get
+$\Omega\to\Omega$ in one step. This is called a <dfn>Divergent</dfn>
+term, since it leads to an infinite loop when we try to evaluate it.
+</p>
+
+<p>
+So what do we have when we consider $K=\lambda x\ldotp\lambda y\ldotp x$
+when we evaluate
+\[ K~e~\Omega\to???\]
+We see that $K~v_{1}~v_{2}\to v_{1}$ when we work with values. We also
+see that $K~v~e\to_{cbn}v$ for any lambda-expression $e$ including
+divergent terms.
+</p>
+
+<p>
+Call-by-value semantics would produce $K~v~\Omega\to_{cbv}\Omega$ which is
+not what we would typically want.
+</p>
+
+<p>
+Full beta reduction permits both reductions.
+</p>
+
+<p>
+That's&hellip;not good. We get three completely different answers from the
+three different beta reduction rules.
+</p>
+
+<p>
+Let us ask the opposite question: do these three rules agree at all?
+</p>
+
+<p>
+<div class="proclaim theorem">
+<b>Theorem 8:</b> <i>Beta reduction is confluent</i><br>
+Let $e_{1}\to e_{2}$ be beta reduction according to any of the
+rules. Let $e_{1}\to^{*}e_{2}$ be the reflexive transitive closure of
+the beta reduction relation. 
+</p>
+
+<p>
+Let $e$ be any lambda-expression.
+If $e\to^{*}e_{1}$ and $e\to^{*}e_{2}$,
+</p>
+
+<p>
+If $e_{2}$ is a normal form (so there is
+no $e'$ such that $e_{2}\to e'$), and if $e_{1}\to^{*} e_{2}$ 
+<br>(End of Theorem 8)
+</div>
+</p>
+
+<p>
+<footer>
+<b>[</b> <a href="syntax.html">Back</a> <b>|</b> <a href="index.html">Up</a> <b>|</b> <a href="church-encoding.html">Next</a> <b>]</b>
+</footer>
+</p>
+
+</main>
+
+</body>
+</html>

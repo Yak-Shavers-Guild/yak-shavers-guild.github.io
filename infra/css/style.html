@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
 <title>Stylesheet of the Yak Shavers Guild</title>
-<link type="text/css" rel="stylesheet" href="../../css/style.css" />
+<link type="text/css" rel="stylesheet" href="../../css/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
 
 <!-- The loading of KaTeX is deferred to speed up page rendering -->
@@ -102,7 +102,7 @@ The font size 20px was, again, just a random choice. The
 heuristic among graphic designers seems to be 16px to 20px, with text
 heavy sites preferring larger fonts.
 </p>
-<div class="proclaim">
+<div class="proclaim remark">
 <p>
 <b>Remark:</b> <i>Font size and text width.</i><br>
 If I wanted to adhere to the 12-8-4 heuristic among graphic designers,
@@ -172,11 +172,175 @@ figcaption {
     font-size: smaller;
 }</pre>
 
+<h3>Theorems, Remarks, Propositions</h3>
+
+<p>
+This is a "mathematical text", so I am prone to write theorems (and
+definitions and proofs and&hellip;). It would be nice to format these
+specially.
+</p>
+
+<p>
+Since each "register" has its own stylistic idiosyncracies, I will
+discuss them here as I implement them.
+</p>
+
+<p>
+<b>Remarks</b> are inspired from Bourbaki's style, but with an HTML
+flavor. Specifically, remarks are indented (like Bourbaki) and with a
+dotted vertical line to its left. The consensus among CSS designers is
+to use <code>rem</code> as the units for indentation. (We also want to include
+<i>some</i> margin for printed versions to "look nice".)
+</p>
+
+<p>
+The <code>font-size</code> for remarks are <code>smaller</code>, but we also adjust the
+line-height accordingly. It's the same calculation as we did for the
+body font's line-height.
+</p>
+
+<p>
+I am thinking some remarks are so tangential that they might warrant
+being inside a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details"><code>&lt;details&gt;</code> tag</a>.
+But I will cross that bridge when I get there&hellip;
+</p>
+
+<p>
+Also observe that a remark should <b>not</b> be a <code>&lt;section&gt;</code> element,
+since the heuristic <a href="https://html.spec.whatwg.org/multipage/sections.html#the-section-element">offered by the HTML5 spec</a>
+is that a <code>&lt;section&gt;</code> element is appropriate when its contents would
+appear in the "outline" (table of contents in tree order), which is
+generically <b>not true</b> for remarks, theorems, definitions, etc. So
+they should be <code>&lt;div&gt;</code> elements.
+</p>
+
+<pre data-lang="css" class="src">div.remark {
+    border-left: 1px dotted black;
+    font-size: smaller;
+    line-height: calc(1ex / 0.32);
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+}</pre>
+
+<p>
+I think it's wise to make the body of a "register" change background
+when hovering. A light green would be pleasant and welcoming.
+</p>
+
+<p>
+We will also want to make the <code>remark</code> not change its left margin.
+</p>
+
+<p>
+The margins and paddings are chosen to make the rest of the HTML
+"stable" &mdash; i.e., it won't shift one iota.
+</p>
+
+<pre data-lang="css" class="src">.proclaim:not(.remark):hover {
+    background-color: #D9FEE5;
+    border: 1px solid #265F39;
+    margin: -1px -0.5rem;
+    padding: 0 calc(0.5rem - 1px);
+
+}
+
+.proclaim &gt; p:last-of-type {
+    margin-bottom: 0px;
+}
+
+.remark.proclaim:hover {
+    background-color: #D9FEE5; /* #90EE90; */
+}</pre>
+
+<h3>Dangerous Bends</h3>
+
+<p>
+We could implement a Bourbaki-like "dangerous bend" environment.
+</p>
+
+<p>
+This would use the Unicode "☡" (<code>U+2621</code>) symbol for the dangerous bend.
+I should double check this is supported by "enough" web browsers.
+</p>
+
+<p>
+There is a solid red border to the left, and the background color is a
+very light shade of red (noticeable enough to distinguish from the
+usual background color, but not violent enough to jar the reader).
+</p>
+
+<pre data-lang="css" class="src">div.danger {
+    background-color: #fff8ee;
+    border-left-style: solid;
+    border-width: 5px;
+    border-color: red;
+    margin-bottom: 2em;
+    padding: 6px 0px 6px 10px;
+}
+
+div.danger p:first-of-type {
+    display: inline;
+}
+
+div.danger:before {
+    color: #ccc;
+    content: &apos;☡&apos;;
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.25em;
+}</pre>
+
+<h3>Keyboard</h3>
+
+<p>
+The <code>&lt;kbd&gt;</code> element is used for user input. I seldom use it, but I
+don't want it to look ugly.
+</p>
+
+<p>
+This is heavily inspired by <a href="https://dylanatsmith.com/wrote/styling-the-kbd-element">Dylan Smith's style</a>.
+I should also weigh this against what Emacs stackexchange does (see,
+e.g., the discussion <a href="https://emacs.stackexchange.com/q/68544/14353">elsewhere</a>).
+</p>
+
+<p>
+The <code>display: inline-block</code> breaks things when we try to print out the
+page onto paper: the width of the element grows (for some reason) on
+Firefox. 
+</p>
+
+<pre data-lang="css" class="src">kbd {
+    border-radius: 0.25rem;
+    border: 1px solid #cbcccd;
+    box-shadow: 0 2px 0 1px #cbcccd;
+    /* display: inline-block; */
+    font-size: 0.6875em;
+    line-height: 1;
+    padding: 2px 5px;
+    position: relative;
+    text-align: center;
+    top: -1px;
+}</pre>
+
 <h3>Inline citations, abbreviations, definitions</h3>
 
 <p>
 The citation tags should be italicized, though I may want to carve out
 different classes of citations (e.g., books, websites, lectures, etc.).
+We will default to italicizing its contents.
+</p>
+
+<p>
+Remember, the <a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-cite-element">HTML5 specification</a>
+for <code>&lt;cite&gt;</code> states that we wrap it around the work's <i>title</i>.
+</p>
+
+<p>
+For article titles (which should be in quotes), the HTML should look
+like <code>&quot;&lt;cite&gt;article title&lt;/cite&gt;&quot;</code> according to the 
+<a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-blockquote-element">HTML5 specification</a> examples for <code>&lt;blockquote&gt;</code>.
 </p>
 
 <pre data-lang="css" class="src">cite {
@@ -185,13 +349,24 @@ different classes of citations (e.g., books, websites, lectures, etc.).
 
 <p>
 Abbreviations should have a dotted underlining, to indicate they are
-abbreviations. (Though I seriously doubt I would use <code>&lt;abbrev&gt;</code> tags
+abbreviations. (Though I seriously doubt I would use <code>&lt;abbr&gt;</code> tags
 anywhere&hellip;)
 </p>
 
-<pre data-lang="css" class="src">abbrev {
+<p>
+The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/abbr">MDN documentation</a>
+for <code>&lt;abbr&gt;</code> tag is worth reading, if I decide to use it.
+</p>
+
+<pre data-lang="css" class="src">abbr {
     text-decoration: underline dotted 1px;
 }</pre>
+
+<p>
+The <code>&lt;dfn&gt;</code> element wraps around a newly defined term (a <i>definiendum</i>).
+The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dfn">MDN docs</a>
+are worth reading.
+</p>
 
 <p>
 Definitions should be in green and dotted underline (it's different enough to be
@@ -228,19 +403,49 @@ matters for mobile viewers.
 <h3>Block Quotes</h3>
 
 <p>
-Blockquotes should not have huge left margins, but a dotted line on the
-left-hand side.
+At first I thought: blockquotes should not have huge left margins, but
+a dotted line on the left-hand side.
 </p>
 
 <p>
-The consensus among CSS designers is to use <code>rem</code> as the preferred
-units on these matters.
+But then I started using this style for remarks, which made it hard to
+distinguish from blockquotes.
+</p>
+
+<p>
+So I switched to imitate Stackoverflow's style for blockquotes.
+</p>
+
+<p>
+I also chose to make the font-size a little bit smaller.
+</p>
+
+<p>
+I deliberated betwen usign 1em or 10px for the padding (and left
+margin). The consensus among CSS designers seems to be: use <code>rem</code> for
+white space dimensions.
 </p>
 
 <pre data-lang="css" class="src">blockquote {
-    border-left: 1px dotted;
-    margin-left: 0.5rem;
-    padding-left: 0.5rem;
+  background: #f9f9f9;
+  border-left: 3px solid #ccc;
+  font-size: 92.7%; /* 1.5/phi */
+  line-height: calc(1ex / 0.32);
+  margin: 0 0 0 0.5rem;
+  padding: 0.5rem;
+}</pre>
+
+<p>
+I want to avoid "excessive vertical space" for paragraphs within a
+blockquote. Specifically the first and last paragraphs should have no
+top (respectively, bottom) marin.
+</p>
+
+<pre data-lang="css" class="src">blockquote &gt; p:first-of-type {
+    margin-top: 0;
+}
+blockquote &gt; p:last-of-type {
+    margin-bottom: 0;
 }</pre>
 
 <h3>Lists</h3>
@@ -653,8 +858,8 @@ to do about the language. (End of TODO)
 <pre data-lang="css" class="src">/* Printed versions should indent the text */
 @media only print {
     p + p, main &gt; p {
-      text-indent: 2rem;
-      margin: 0 auto;
+        text-indent: 2rem;
+        margin: 0 auto;
     }
     pre {
         color: black;
@@ -662,6 +867,15 @@ to do about the language. (End of TODO)
         border-top: 1px solid black;
         border-bottom: 1px solid black;
         padding: 1ex;
+    }</pre>
+
+<p>
+Also note: when printing things out, the first paragraph <i>after</i> a
+remark should not be indented (it just looks weird).
+</p>
+
+<pre data-lang="css" class="src">    div.remark + p {
+        text-indent: 0px;
     }
 }</pre>
 
