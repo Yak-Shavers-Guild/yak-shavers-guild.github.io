@@ -118,8 +118,8 @@ designers seem to agree upon.
 </p>
 
 <pre data-lang="css" class="src">html {
-    /* font: normal 12pt/18pt serif; */
-    /* font: normal 16pt/24pt Palatino, serif; */
+    <span class="c">/* font: normal 12pt/18pt serif; */</span>
+    <span class="c">/* font: normal 16pt/24pt Palatino, serif; */</span>
     font-family: &quot;Palatino Linotype&quot;, Palatino, Palladio, &quot;URW Palladio L&quot;, &quot;Book Antiqua&quot;, Baskerville, &quot;Bookman Old Style&quot;, &quot;Bitstream Charter&quot;, &quot;Nimbus Roman No9 L&quot;, Garamond, &quot;Apple Garamond&quot;, &quot;ITC Garamond Narrow&quot;, &quot;New Century Schoolbook&quot;, &quot;Century Schoolbook&quot;, &quot;Century Schoolbook L&quot;, Georgia, serif;
     font-size: 20px;
     line-height: calc(1ex / 0.32);
@@ -127,8 +127,8 @@ designers seem to agree upon.
 
 body {
     background-color: #4f4b36;
-    /* background-color: #565656; */
-    /* background-color: #fff3a6; */
+    <span class="c">/* background-color: #565656; */</span>
+    <span class="c">/* background-color: #fff3a6; */</span>
     margin: 0px;
     min-height: 100vh;
 }
@@ -163,7 +163,7 @@ The caption for figures (which should always be present) should have a
 noticeably smaller font size.
 </p>
 
-<pre data-lang="css" class="src">/* figures should be centered and have max-width */
+<pre data-lang="css" class="src"><span class="c">/* figures should be centered and have max-width */</span>
 figure {
     max-width: 100%;
     text-align: center;
@@ -249,7 +249,121 @@ The margins and paddings are chosen to make the rest of the HTML
 }
 
 .remark.proclaim:hover {
-    background-color: #D9FEE5; /* #90EE90; */
+    background-color: #D9FEE5; <span class="c">/* #90EE90; */</span>
+}
+
+@media only print {
+    .proclaim {
+        margin: 2.25ex 0;
+    }
+    .proclaim &gt; p:first-of-type {
+        display: none;
+    }
+}</pre>
+
+<h3>Specifications and Unit Tests</h3>
+
+<p>
+We will wrap unit tests in a <code>&lt;details&gt;</code> element, because it's only
+interesting if you're reading the engineering perspective on things.
+</p>
+
+<p>
+We give it a little padding and a border ("frame"). When opened, there
+will be a horizontal line separating the <code>&lt;summary&gt;</code> from the rest of
+the <code>&lt;details&gt;</code>.
+</p>
+
+<pre data-lang="css" class="src">details.spec {
+    border: 1px solid;
+    margin: -7px;
+    padding: 6px;
+}
+
+details.spec[open] summary {
+    border-bottom: 1px solid;
+}</pre>
+
+<h3>Proofs</h3>
+
+<p>
+We will use <code>&lt;details class=&quot;proof&quot;&gt;...&lt;/details&gt;</code> for proof bodies.
+</p>
+
+<p>
+There's a small hack to place a QED symbol (<code>U+220E</code>) at the end of
+the proof when the <code>&lt;details&gt;</code> is opened.
+</p>
+
+<pre data-lang="css" class="src">details.proof {
+    font-size: smaller;
+    line-height: 1.5em;
+    margin: 0;
+    padding-left: 1em;
+}
+
+details.proof .katex {
+    font-size: 1em;
+    line-height: 1em;
+}
+
+details.proof summary {
+    display: inline-block;
+}
+
+details.proof:open {
+    <span class="c">/* background-color: #ddd; */</span>
+    padding: 0 1em 1px; <span class="c">/* 0 0.75em 0 6px; */</span>
+}
+details.proof[open]:hover {
+    background-color: #eee;
+    border: 1px solid #aaa;
+    margin: -1px;
+}
+
+details.proof[open]:hover &gt; summary {
+    background-color: #bbe;
+}
+
+details.proof &gt; summary {
+    background-color: #ccf;
+    border: none;
+    cursor: pointer;
+    padding: 2px 6px;
+}
+
+details.proof[open] &gt; p:first-of-type {
+    display: none;
+}
+
+@media only screen {
+    details.proof:open::after {
+        content: &quot;∎&quot;;
+        float: right;
+        margin-right: -14px;
+        margin-top: -5.5ex;
+    }
+}
+@media only print {
+    details.proof:open::after {
+        content: &quot;∎&quot;;
+        float: right;
+        margin-right: -14px;
+        margin-top: -3.5ex;
+    }
+    details.proof[open] {
+        margin-bottom: 2.5ex;
+    }
+}
+
+
+
+summary {
+    list-style-type: &apos;⬇ &apos;;
+}
+
+details[open] &gt; summary {
+    list-style-type: &apos;⬆ &apos;;
 }</pre>
 
 <h3>Dangerous Bends</h3>
@@ -315,7 +429,7 @@ Firefox.
     border-radius: 0.25rem;
     border: 1px solid #cbcccd;
     box-shadow: 0 2px 0 1px #cbcccd;
-    /* display: inline-block; */
+    <span class="c">/* display: inline-block; */</span>
     font-size: 0.6875em;
     line-height: 1;
     padding: 2px 5px;
@@ -429,7 +543,7 @@ white space dimensions.
 <pre data-lang="css" class="src">blockquote {
   background: #f9f9f9;
   border-left: 3px solid #ccc;
-  font-size: 92.7%; /* 1.5/phi */
+  font-size: 92.7%; <span class="c">/* 1.5/phi */</span>
   line-height: calc(1ex / 0.32);
   margin: 0 0 0 0.5rem;
   padding: 0.5rem;
@@ -508,39 +622,39 @@ Selenize white.
 }
 #cdcdcd   #c2c2c2
 code {
-    background: #ffffff; /* bg_0 */
-    color: #373737;      /* fg_0, AppleRGB */
+    background: #ffffff; <span class="c">/* bg_0 */</span>
+    color: #373737;      <span class="c">/* fg_0, AppleRGB */</span>
 }
 
 pre {
-    background: #112e38; /* bg_0, AppleRGB */
-    color: #adbcbc;      /* fg_0 */
-    /* background: #f6f8fa; */
-    /* color: #1f2328; */
-    /* background: #afb8c133; */
-    /* background: #f1f1f1; */
+    background: #112e38; <span class="c">/* bg_0, AppleRGB */</span>
+    color: #adbcbc;      <span class="c">/* fg_0 */</span>
+    <span class="c">/* background: #f6f8fa; */</span>
+    <span class="c">/* color: #1f2328; */</span>
+    <span class="c">/* background: #afb8c133; */</span>
+    <span class="c">/* background: #f1f1f1; */</span>
 }
 
 pre .comment {
-    color: #72898f;      /* dim_0 */
+    color: #72898f;      <span class="c">/* dim_0 */</span>
     font-style: italic;
 }
 
 pre.example {
-    background: #fbf3db; /* bg_0 */
-    color: #43545a;      /* fg_0, using AppleRGB for darkness */
+    background: #fbf3db; <span class="c">/* bg_0 */</span>
+    color: #43545a;      <span class="c">/* fg_0, using AppleRGB for darkness */</span>
 }
 
 pre.example .comment {
-    color: #909995;      /* dim_0 */
+    color: #909995;      <span class="c">/* dim_0 */</span>
     font-style: italic;
 }
-/*
+<span class="c">/*
 keyword: #cf222e;
 entity: #6639ba;
 constant: #0550ae;
 comment: #57606a;
-*/
+*/</span>
 
 code {
     padding: 2px;
@@ -564,8 +678,8 @@ code (but it will keep the underline on hover):
 </p>
 
 <pre data-lang="css" class="example">pre a {
-    /* text-decoration: none; */ /* ??? */
-    text-decoration-style: dashed; /* dotted??? */
+    <span class="c">/* text-decoration: none; */</span> <span class="c">/* ??? */</span>
+    text-decoration-style: dashed; <span class="c">/* dotted??? */</span>
     
 }
 pre a:hover {
@@ -587,8 +701,8 @@ black. Otherwise, it will be "dark-ish grey".
 </p>
 
 <pre data-lang="css" class="src">@media screen {
-    /* Show the language name when hovering over
-       the PRE block, using the data-lang attribute. */
+    <span class="c">/* Show the language name when hovering over
+       the PRE block, using the data-lang attribute. */</span>
     pre.src, pre.example {
         position: relative;
     }
@@ -601,10 +715,10 @@ black. Otherwise, it will be "dark-ish grey".
         padding: 0px 3px;
     }
     
-    /* Use white as the background, to &quot;alert&quot; the
+    <span class="c">/* Use white as the background, to &quot;alert&quot; the
        reader that this is not some &quot;dynamic code change&quot;
        (or whatever), but an &quot;English text addendum&quot;.
-   */
+   */</span>
     pre.src:hover::before {
         display: inline;
         background: #fff;
@@ -626,6 +740,24 @@ with "(example)" afterwards.
         content: attr(data-lang) &quot;(example)&quot;;
         z-index: 1000;
     }
+}</pre>
+
+<h3>Syntax Highlighting</h3>
+
+<p>
+The CSS for syntax highlighting follows Pygments <a href="https://github.com/rouge-ruby/rouge/wiki/List-of-tokens">tokens css classes</a>
+and Selenized color scheme.
+</p>
+
+<pre data-lang="css" class="src"><span class="c">/* comments */</span>
+.src .c {
+    color: #72898f; <span class="c">/* dim0 */</span>
+    font-style: italic;
+}
+
+.example .c {
+    color: #909995;
+    font-style: italic;
 }</pre>
 
 <h3>Navigation trees</h3>
@@ -655,12 +787,12 @@ being <code>-5.5ex</code>, but I don't have one. It just "looks about right".
 <pre data-lang="css" class="src">nav.crumbs {
     border-bottom: 1px solid #ccc;
     font-size: smaller;
-    line-height: 2.42705098ex; /* == 1.5*phi*ex */
+    line-height: 2.42705098ex; <span class="c">/* == 1.5*phi*ex */</span>
 }
 
 @media only screen {
     nav.crumbs {
-        margin-top: -5.5ex; /* eye-ball estimate */
+        margin-top: -5.5ex; <span class="c">/* eye-ball estimate */</span>
         max-height: 5ex;
     }
 }
@@ -701,8 +833,8 @@ Last, we have directory trees to act as <a href="https://en.wikipedia.org/wiki/C
 elsewhere). We should render this in a suitably nice way.
 </p>
 
-<pre data-lang="css" class="src">/* Directory trees should be suitably
-   different from normal text */
+<pre data-lang="css" class="src"><span class="c">/* Directory trees should be suitably
+   different from normal text */</span>
 div.tree {
     font: 13px mono;
     line-height: 15px;
@@ -749,12 +881,12 @@ to a <code>font-size: 1.21em</code> which makes it look fine relative to a
 sans-serif font, but it's huge for a serif font (like what we have).
 </p>
 
-<pre data-lang="css" class="src">/* End of showing the language name
-   when hovering over the PRE block */
+<pre data-lang="css" class="src"><span class="c">/* End of showing the language name
+   when hovering over the PRE block */</span>
 @media only screen and (min-width: 600px) {
     main {
         margin: 0 auto;
-        /* margin: 0 auto 0 40%; */
+        <span class="c">/* margin: 0 auto 0 40%; */</span>
         width: 60ch;
         padding: 1rem;
     }
@@ -807,11 +939,11 @@ entire content rendered. (This is idiomatic 12-8-4 convention.)
         font-size: 1em !important;
     }
     pre {
-        /* font-size: 20px; */
+        <span class="c">/* font-size: 20px; */</span>
         overflow-x: scroll;
-        /* background-image: linear-gradient(180deg, #eee 50%, #fff 50%); */
-        /* background-size: 100% 48px; */
-        /* line-height: 24px; */
+        <span class="c">/* background-image: linear-gradient(180deg, #eee 50%, #fff 50%); */</span>
+        <span class="c">/* background-size: 100% 48px; */</span>
+        <span class="c">/* line-height: 24px; */</span>
     }
     blockquote {
         margin-right: 0px;
@@ -855,7 +987,7 @@ text.
 to do about the language. (End of TODO)
 </p>
 
-<pre data-lang="css" class="src">/* Printed versions should indent the text */
+<pre data-lang="css" class="src"><span class="c">/* Printed versions should indent the text */</span>
 @media only print {
     p + p, main &gt; p {
         text-indent: 2rem;

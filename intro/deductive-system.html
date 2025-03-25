@@ -569,6 +569,28 @@ Formal Systems in this technical sense (which was <i>effectively</i> the
 last nail in the coffin for Hilbert's programme).
 </p>
 
+<h3>Metatheory</h3>
+
+<p>
+It's common to refer to the metalanguage employed in describing a
+deductive system as the <dfn>metatheory</dfn>.
+</p>
+
+<p>
+Confusingly, it's also common to refer to the theorems proven about a
+particular "object logic" as the <i>metatheory</i> of the (object)
+logic. The theorems are called <dfn>Metatheorems</dfn>.
+</p>
+
+<p>
+Care must be taken when encountering this terminology.
+</p>
+
+<p>
+We will consistently use the former sense of "metatheory" (to describe
+the metalanguage of a deductive system).
+</p>
+
 <h2>Concluding Remarks</h2>
 
 <p>
@@ -627,6 +649,110 @@ Per Martin-Löf's work (starting with his 1984 lectures on
 Intuitionistic Type Theory) introduced judgements as we would now
 recognize them.
 </p>
+
+<h2>Exercises</h2>
+
+<ol><li>
+<p>
+Think about how to describe a grammar as a deductive system.
+(Hint: have judgements for "the following string <code>s</code> belongs to the
+syntactic category <code>&lt;cat&gt;</code>" and another judgement for production
+rules, as well as a judgement that a string is "well-formed" in the
+sense that it belongs to the generated grammar.)
+</p>
+</li>
+<li>
+<p>
+We can think of a <b>proof calculus</b> for logic as a deductive
+system with the judgement $\varphi~\mathsf{true}$ which is usually
+just abbreviated to the formulas themselves (or worse, written as
+<span style="white-space: nowrap">$\vdash\varphi$</span>). The crucial connective is implication, which
+allows us to transform <span style="white-space: nowrap">$\alpha,\beta\vdash\gamma$</span> to
+<span style="white-space: nowrap">$\alpha\vdash\beta\implies\gamma$</span> and vice-versa.
+</p>
+</li>
+<li>
+<p>
+If we have two deductive systems, is there a natural "morphism"
+from one to the other? Is there a way to take the "product" of
+deductive systems? In short, is there a way to describe deductive
+systems using category theory?
+</p>
+</li>
+<li>
+<p>
+A <b>logical framework</b> is a deductive system capable of
+representing deductive systems. You don't need much to have a
+logical framework (for example, first-order logic works: judgements
+are predicates, and an inference rule is just the conjunction of
+the premises implies the conclusion).
+</p>
+
+<ul><li>
+<p>
+What's a more rigorous definition of a logical framework?
+</p>
+</li>
+<li>
+<p>
+Is first-order logic really an adequate system for acting like a
+logical framework? (Hint: think about encoding propositional
+logic, how would this be done? Must we need sets?)
+</p>
+</li>
+<li>
+<p>
+Can some fragment of Peano arithmetic or Heyting suffice as a
+logical framework? (This was part of Hilbert's programme; hint:
+look at <a href="https://en.wikipedia.org/wiki/Primitive_recursive_arithmetic">PRA</a>)
+</p>
+</li>
+<li>
+<p>
+Can we prove properties about a deductive system in a logical
+framework? (Hint: think about the previous situation where
+a fragment of arithmetic is the logical framework.)
+</p>
+</li>
+</ul>
+</li>
+<li>
+<p>
+Our presentation of deductive systems is two-dimensional (inference
+rules is two-dimensional). Can you come up with a formal language
+for deductive systems?
+</p>
+</li>
+<li>
+<p>
+Since Hilbert's programme in the 1920s, we typically work with a
+finitary metatheory &mdash; the metalanguage used when working with
+deductive systems is "finitistic" and Intuitionistic (in the sense
+of <a href="https://en.wikipedia.org/wiki/L._E._J._Brouwer">Brouwer</a>'s
+Intuitionism).
+</p>
+
+<ul><li>
+<p>
+Research Feferman's $\mathsf{FS}_{0}$ set theory as a finitary
+metatheory for deductive systems. See Feferman's "Finitary
+inductively presented logics"
+(<a href="https://virtualmath1.stanford.edu/~feferman/papers/presentedlogics.pdf">eprint</a>)
+and Séan Matthews's "A Theory and its Metatheory in $\mathsf{FS}_{0}$" (<a href="https://pure.mpg.de/rest/items/item_1834288_2/component/file_1857794/content">eprint</a>) for further details.
+Write an essay summarizing how
+to use it to describe a deductive system, as well as its positive
+and negative qualities.
+</p>
+</li>
+<li>
+<p>
+If we consider a programming language instead of a finitary
+metatheory, what could possibly go wrong?
+</p>
+</li>
+</ul>
+</li>
+</ol>
 
 <p>
 <footer>

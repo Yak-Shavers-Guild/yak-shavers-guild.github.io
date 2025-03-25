@@ -57,6 +57,96 @@ div.remark {
     background-color: #D9FEE5; /* #90EE90; */
 }
 
+@media only print {
+    .proclaim {
+        margin: 2.25ex 0;
+    }
+    .proclaim > p:first-of-type {
+        display: none;
+    }
+}
+
+details.spec {
+    border: 1px solid;
+    margin: -7px;
+    padding: 6px;
+}
+
+details.spec[open] summary {
+    border-bottom: 1px solid;
+}
+
+details.proof {
+    font-size: smaller;
+    line-height: 1.5em;
+    margin: 0;
+    padding-left: 1em;
+}
+
+details.proof .katex {
+    font-size: 1em;
+    line-height: 1em;
+}
+
+details.proof summary {
+    display: inline-block;
+}
+
+details.proof:open {
+    /* background-color: #ddd; */
+    padding: 0 1em 1px; /* 0 0.75em 0 6px; */
+}
+details.proof[open]:hover {
+    background-color: #eee;
+    border: 1px solid #aaa;
+    margin: -1px;
+}
+
+details.proof[open]:hover > summary {
+    background-color: #bbe;
+}
+
+details.proof > summary {
+    background-color: #ccf;
+    border: none;
+    cursor: pointer;
+    padding: 2px 6px;
+}
+
+details.proof[open] > p:first-of-type {
+    display: none;
+}
+
+@media only screen {
+    details.proof:open::after {
+        content: "∎";
+        float: right;
+        margin-right: -14px;
+        margin-top: -5.5ex;
+    }
+}
+@media only print {
+    details.proof:open::after {
+        content: "∎";
+        float: right;
+        margin-right: -14px;
+        margin-top: -3.5ex;
+    }
+    details.proof[open] {
+        margin-bottom: 2.5ex;
+    }
+}
+
+
+
+summary {
+    list-style-type: '⬇ ';
+}
+
+details[open] > summary {
+    list-style-type: '⬆ ';
+}
+
 div.danger {
     background-color: #fff8ee;
     border-left-style: solid;
@@ -236,6 +326,17 @@ pre {
         content: attr(data-lang) "(example)";
         z-index: 1000;
     }
+}
+
+/* comments */
+.src .c {
+    color: #72898f; /* dim0 */
+    font-style: italic;
+}
+
+.example .c {
+    color: #909995;
+    font-style: italic;
 }
 
 nav.crumbs {
