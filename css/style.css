@@ -339,6 +339,14 @@ pre {
     font-style: italic;
 }
 
+.example .k, .src .k {
+    color: #fa5750;
+}
+
+.example .s, .src .s {
+    color: #4695f7;
+}
+
 nav.crumbs {
     border-bottom: 1px solid #ccc;
     font-size: smaller;
