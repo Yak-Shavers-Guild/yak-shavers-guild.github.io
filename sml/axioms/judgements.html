@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Judgements - Axiomatic SML</title>
+<link type="text/css" rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+onload="renderMathInElement(document.body);"></script>
+<script>
+    // https://github.com/KaTeX/KaTeX/blob/main/docs/autorender.md
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            // customised options
+            // auto-render specific keys, e.g.:
+                delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: "\begin{equation}", right: "\end{equation}", display: true},
+                {left: "\begin{align}", right: "\end{align}", display: true},
+            ],
+            // rendering keys, e.g.:
+            throwOnError : false
+        });
+    });
+ </script>
+
+</head>
+<body>
+<main>
+
+<p>
+<nav class="crumbs">
+</p>
+
+<ul><li>
+<p>
+<a href="../../index.html">ysg</a>
+</p>
+</li>
+<li>
+<p>
+<a href="../index.html">sml</a>
+</p>
+</li>
+<li>
+<p>
+<a href="./index.html">axioms</a>
+</p>
+</li>
+<li>
+<p>
+judgements
+</p>
+</li>
+</ul>
+
+<p>
+</nav>
+</p>
+
+<h1>Judgements - Axiomatic SML</h1>
+
+<p>
+When presenting a deductive system, we need to give the underlying
+language (usually in a terse pseudo-BNF grammar), the judgement forms,
+and the inference rules giving us their inductive definition.
+</p>
+
+<p>
+The <a href="https://smlfamily.github.io/sml97-defn.pdf"><cite class="book">Definition of Standard ML</cite></a> explains there are three
+"phases" to executing a Standard ML:
+</p>
+
+<ol><li>
+<p>
+<b>parsing</b> the input into a syntax tree
+</p>
+</li>
+<li>
+<p>
+<b>elaboration</b> which performs type inference and type checking
+</p>
+</li>
+<li>
+<p>
+<b>evaluation</b> which "does the work"
+</p>
+</li>
+</ol>
+
+<p>
+The evaluation phase contains the more interesting parts, then
+elaboration contains the second most interesting parts, and finally
+parsing&hellip;is a thing&hellip;
+</p>
+
+<p>
+We will be annotating terms with their types, so type inference will
+not really be needed to reason about the code.
+</p>
+
+<p>
+And we will not need parsing judgements, but the really
+dedicated/motivated reader may come up with some judgements for a
+string being a grammatically well-formed pseudoexpression.
+</p>
+
+<h2>Evaluation-related Judgements</h2>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 1:</b> <i>Reduction judgement</i>.<br>
+Let $e$ and $e'$ be two Standard ML expressions of the same type. We
+have the <dfn>Reduction</dfn> judgement forms:
+</p>
+
+<ul><li>
+<p>
+$e\stackrel{1}{\Longrightarrow}e'$
+meaning $e$ <i>reduces to</i> $e'$ in one step
+</p>
+</li>
+<li>
+<p>
+$e\stackrel{k}{\Longrightarrow}e'$ meaning $e$ <i>reduces to</i> $e'$ in $k$ steps
+</p>
+</li>
+<li>
+<p>
+$e\Longrightarrow e'$ (ASCII: <code>e ==&gt; e&apos;</code> for usage in comments in
+Standard ML) meaning $e$ <i>reduces to</i> $e'$ in zero or more steps
+</p>
+</li>
+</ul>
+
+<p>
+These "steps" refer to steps in some hypothetical abstract
+machine. They may or may not correspond to CPU cycles.
+<br>(End of Definition 1)
+</div>
+</p>
+
+<p>
+We have times when an expression can be reduced any further. There are
+three possible outcomes:
+</p>
+
+<ul><li>
+<p>
+A "value" is produced from the computation (<code>3 + 2</code> reduces to <code>5</code>
+and cannot reduce any farther)
+</p>
+</li>
+<li>
+<p>
+A "divergent" situation like an infinite loop or some other "bad"
+situation; this is denoted by the special "value" $\bot$ (pronounced
+<dfn>Bottom</dfn>) which can be given any type
+</p>
+</li>
+<li>
+<p>
+An exception could be raised, which propagates until it is handled
+(or reaches the main function).
+</p>
+</li>
+</ul>
+
+<p>
+The first situation merits its own cluster of judgements.
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 2:</b> <i>Value and Valuable judgement form</i>.<br>
+Let $e$ be an expression. We have the <dfn>Value</dfn> judgement form
+$e~\mathsf{Value}$ asserts that $e$ is a value. In ASCII, we write <code>e value</code>.
+</p>
+
+<p>
+We will use the metavariable $v$ for expressions which are values.
+</p>
+
+<p>
+If $e$ is an expression of type $T$, then we have the judgement
+$e~\mathsf{Valuable}$ which means there exists a value $v$ of type $T$ such that
+$e\Longrightarrow v$ (including the case when $e=v$).
+In ASCII, we write this judgement as <code>e valuable</code>.
+<br>(End of Definition 2)
+</div>
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 3:</b> <i>Evaluation judgement form</i>.<br>
+Let $e$ be an expression of type $T$ and let $v$ be a value of type
+$T$.
+We define the <dfn>Evaluation</dfn> judgement form, denoted
+$e\hookrightarrow v$, which asserts <i>either</i> $e$ is syntactically
+identical to $v$ already <i>or</i> there exists some non-negative integer $k$ such that $e\stackrel{k}{\Longrightarrow}v$.
+<br>(End of Definition 3)
+</div>
+</p>
+
+<p>
+<div class="proclaim definition">
+<b>Definition 4:</b> <i>Extensional equivalence</i>.<br>
+Let $e$ and $e'$ be two expressions of the same type.
+We define the judgement that $e$ and $e'$ are 
+<dfn>Extensionally Equivalent</dfn>
+$e\cong e'$ (ASCII: <code>e == e&apos;</code>)
+by cases.
+</p>
+
+<p>
+<b>Case 1:</b> When $e$ and $e'$ both have the same nonfunction type $T$,
+they are extensionally equivalent when one of the following holds:
+</p>
+
+<ol><li>
+<p>
+$e$ evaluates to a value $v$ and we have $e'\Longrightarrow v$
+(i.e., they both evaluate to the same value)
+</p>
+</li>
+<li>
+<p>
+evaluation of $e$ raises an exception which is extensionally
+equivalent to the exception raised by evaluating $e'$
+</p>
+</li>
+<li>
+<p>
+evaluation of $e$ and evaluation $e'$ both loop forever.
+</p>
+</li>
+</ol>
+
+<p>
+Observe these are disjoint situations.
+</p>
+
+<p>
+<b>Case 2:</b> When $e$ and $e'$ are exceptions, they are extensionally
+equivalent if (1) they are the same kind of exception and (2) they
+have payloads which are extensionally equivalent (i.e., $e$ is <code>raise (en v)</code>
+and $e'$ is <code>raise (en v&apos;)</code> and we have <code>v == v&apos;</code> be extensionally
+equivalent values).
+</p>
+
+<p>
+<b>Case 3:</b> When $e$ and $e'$ are values whose type is a function type
+$T\to T'$. Then for all values $v$ and $u$ of type $T$ such that they
+are extensionally equivalent $v\cong u$ we have $e(u)\cong e'(v)$
+<i>if and only if</i> they are extensionally equivalent $e\cong e'$.
+</p>
+
+<p>
+<b>Case 4:</b> When $e$ and $e'$ are <i>expressions</i> whose type is a
+function type $T\to T'$, then they are extensionally equivalent
+functions if exactly one of the following three situations holds:
+</p>
+
+<ol><li>
+<p>
+$e$ evaluates to a value $v$ and we have $e'\Longrightarrow v$
+(i.e., they both evaluate to the same function value and we use
+case 3 to establish this)
+</p>
+</li>
+<li>
+<p>
+evaluation of $e$ raises an exception which is extensionally
+equivalent to the exception raised by evaluating $e'$
+</p>
+</li>
+<li>
+<p>
+evaluation of $e$ and evaluation $e'$ both loop forever.
+</p>
+</li>
+</ol>
+
+<p>
+Observe these cases are disjoint, and cover all possible situations.
+<br>(End of Definition 4)
+</div>
+</p>
+
+<h2>Typing Judgements</h2>
+
+<p>
+We use the usual ternary typing judgements in Standard ML
+<span style="white-space: nowrap">$\Gamma\vdash e : T$</span> where
+$\Gamma$ is a list of type declarations of the form
+<span style="white-space: nowrap">$x : T$,</span> and $e$ is a Standard ML expression, and $T$ is a Standard ML
+type.
+</p>
+
+<p>
+We could describe a kind of Hindley&ndash;Milner type system for our
+fragment of Standard ML, but we will not need it.
+</p>
+
+<h2>References</h2>
+
+<p>
+These judgements were first introduced by <a href="https://dlicata.wescreates.wesleyan.edu/">Dan Licata</a> and
+<a href="https://www.cs.cmu.edu/~rwh/">Bob Harper</a> used it when teaching 
+<a href="http://www.cs.cmu.edu/~15150/">CS 150</a> at Carnegie&ndash;Mellon University
+in 2011,
+and it has been perfected by subsequent professors.
+</p>
+
+</main>
+
+</body>
+</html>

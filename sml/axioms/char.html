@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Characters - SML</title>
+<link type="text/css" rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+onload="renderMathInElement(document.body);"></script>
+<script>
+    // https://github.com/KaTeX/KaTeX/blob/main/docs/autorender.md
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            // customised options
+            // auto-render specific keys, e.g.:
+                delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: "\begin{equation}", right: "\end{equation}", display: true},
+                {left: "\begin{align}", right: "\end{align}", display: true},
+            ],
+            // rendering keys, e.g.:
+            throwOnError : false
+        });
+    });
+ </script>
+
+</head>
+<body>
+<main>
+
+<h1>Characters</h1>
+
+<p>
+The idea is that a character, as far as Standard ML cares, is
+basically a "wrapper" around an integer between 0 and 127 called its
+<dfn>Code Point</dfn>.
+</p>
+
+<p>
+<b>Type:</b> <code>char</code>
+</p>
+
+<p>
+<b>Values:</b> There are various ways to write character literals;
+</p>
+
+<ul><li>
+<p>
+Printable characters (numbered 33&ndash;126 in ASCII) can be written
+directly within quotation marks after a hashtag as <code>#&quot;...&quot;</code>
+</p>
+</li>
+<li>
+<p>
+Some characters need to be escaped, for example <code>#&quot;&bsol;&#xfeff;&bsol;&#xfeff;&quot;</code> for a backslash, and <code>#&quot;&bsol;&#xfeff;&quot;&quot;</code> for a double quote
+</p>
+</li>
+<li>
+<p>
+Some special nonprintable character literals: 
+<code>#&quot;&bsol;&#xfeff;a&quot;</code>, <code>#&quot;b&quot;</code>, <code>#&quot;&bsol;&#xfeff;t&quot;</code>, <code>#&quot;&bsol;&#xfeff;n&quot;</code>, <code>#&quot;&bsol;&#xfeff;v&quot;</code>, <code>#&quot;&bsol;&#xfeff;f&quot;</code>, <code>#&quot;&bsol;&#xfeff;r&quot;</code> are for
+the ASCII characters 7&ndash;13 respectively
+</p>
+</li>
+<li>
+<p>
+All characters can be written as <code>#&quot;&bsol;&#xfeff;uXXXX&quot;</code> where <code>X</code> is a
+hexadecimal digit &mdash; for example <code>#&quot;&bsol;&#xfeff;u0063&quot;</code> is the same as <code>#&quot;c&quot;</code>
+(NB: some Standard ML implementations do not handle this properly,
+for example SML/NJ fails in this regard).
+</p>
+</li>
+</ul>
+
+<p>
+<b>Operations:</b>
+</p>
+
+<ul><li>
+<p>
+<code>ord e : char -&gt; int</code> translates a character to its code point
+</p>
+</li>
+<li>
+<p>
+<code>char e : int -&gt; char</code> translates the code point to its corresponding
+character value
+</p>
+</li>
+<li>
+<p>
+<code>str e : char -&gt; string</code> gives the one-character length string for
+the character
+</p>
+</li>
+</ul>
+
+<h2>Typing Rules</h2>
+
+<p>
+\[\frac{e : \mathtt{char}}{\texttt{ord}~e : \mathtt{int}}\hbox{T-Ord}\]
+</p>
+
+<p>
+\[\frac{e : \mathtt{int}}{\texttt{chr}~e : \mathtt{char}}\hbox{T-Chr}\]
+</p>
+
+<p>
+\[\frac{e : \mathtt{char}}{\texttt{str}~e : \mathtt{string}}\hbox{T-Str}\]
+</p>
+
+<h2>Evaluation Rules</h2>
+
+<p>
+These are "obvious": evaluate the argument until it is a value, then
+look up on the <a href="https://en.wikipedia.org/wiki/ASCII">ASCII table</a> the associated information.
+</p>
+
+</main>
+
+</body>
+</html>

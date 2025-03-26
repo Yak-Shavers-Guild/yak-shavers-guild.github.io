@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Booleans - SML</title>
+<link type="text/css" rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+onload="renderMathInElement(document.body);"></script>
+<script>
+    // https://github.com/KaTeX/KaTeX/blob/main/docs/autorender.md
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            // customised options
+            // auto-render specific keys, e.g.:
+                delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: "\begin{equation}", right: "\end{equation}", display: true},
+                {left: "\begin{align}", right: "\end{align}", display: true},
+            ],
+            // rendering keys, e.g.:
+            throwOnError : false
+        });
+    });
+ </script>
+
+</head>
+<body>
+<main>
+
+<p>
+<nav class="crumbs">
+</p>
+
+<ul><li>
+<p>
+<a href="../../index.html">ysg</a>
+</p>
+</li>
+<li>
+<p>
+<a href="../index.html">sml</a>
+</p>
+</li>
+<li>
+<p>
+<a href="./index.html">axioms</a>
+</p>
+</li>
+<li>
+<p>
+boolean
+</p>
+</li>
+</ul>
+
+<p>
+</nav>
+</p>
+
+<h1>Booleans</h1>
+
+<p>
+<b>Type:</b> <code>bool</code>
+</p>
+
+<p>
+<b>Values:</b> <code>true</code> and <code>false</code>
+</p>
+
+<p>
+<b>Operations:</b> the primitive operations defined which we provide
+specifications for, include:
+</p>
+
+<ul><li>
+<p>
+$e_{1}$ <code>orelse</code> $e_{2}$
+</p>
+</li>
+<li>
+<p>
+$e_{1}$ <code>andalso</code> $e_{2}$
+</p>
+</li>
+<li>
+<p>
+<code>not</code> $e$
+</p>
+</li>
+<li>
+<p>
+<code>if</code> $e_{1}$ <code>then</code> $e_{2}$ <code>else</code> $e_{3}$
+</p>
+</li>
+<li>
+<p>
+$e_{1} \lt e_{2}$ (and $e_{1}\gt e_{2}$ and $e_{1}$ <code>&lt;=</code> $e_{2}$ and
+$e_{1}$ <code>&gt;=</code> $e_{2}$)
+</p>
+</li>
+</ul>
+
+<h2>Typing Rules</h2>
+
+<p>
+\[\begin{array}{c}
+\displaystyle\frac{e_{1} : \mathtt{bool},\quad e_{2} : \mathtt{bool}}{e_{1}~\mathtt{orelse}~e_{2} : \mathtt{bool}}\hbox{T-Orelse}\\[12pt]
+\displaystyle\frac{e_{1} : \mathtt{bool},\quad e_{2} : \mathtt{bool}}{e_{1}~\mathtt{andalso}~e_{2} : \mathtt{bool}}\hbox{T-Andalso}\\[12pt]
+\displaystyle\frac{e : \mathtt{bool}}{\mathtt{not}~e : \mathtt{bool}}\hbox{T-Not}\\[12pt]
+\displaystyle\frac{e_{1} : \mathtt{bool},\quad e_{2} : T,\quad e_{3} : T}{\mathtt{if}~e_{1}~\mathtt{then}~e_{2}~\mathtt{else}~e_{3} : T}\hbox{T-If}
+\end{array}\]
+If $T$ is <code>string</code>, <code>char</code>, <code>int</code>, or <code>word</code>, then:
+\[\begin{array}{c}
+\displaystyle\frac{e_{1} : T,\quad e_{2} : T}{e_{1}\mathrel{\texttt{>}} e_{2} : \mathtt{bool}}\hbox{T-Less}\\[12pt]
+\displaystyle\frac{e_{1} : T,\quad e_{2} : T}{e_{1}\mathrel{\texttt{<=}} e_{2} : \mathtt{bool}}\hbox{T-Leq}\\[12pt]
+\displaystyle\frac{e_{1} : T,\quad e_{2} : T}{e_{1}\mathrel{\texttt{>}} e_{2} : \mathtt{bool}}\hbox{T-Greater}\\[12pt]
+\displaystyle\frac{e_{1} : T,\quad e_{2} : T}{e_{1}\mathrel{\texttt{>=}} e_{2} : \mathtt{bool}}\hbox{T-Geq}
+\end{array}\]
+If $T$ is <code>unit</code>, <code>int</code>, <code>bool</code>, <code>char</code>, <code>string</code>, <code>word</code>, then:
+\[\displaystyle\frac{e_{1} : T,\quad e_{2} : T}{e_{1} \mathrel{\texttt{=}} e_{2} : \mathtt{bool}}\hbox{T-Eq}\]
+We can define <code>e1 &lt;&gt; e2</code> as an abbreviation for <code>not (e1 = e2)</code>.
+</p>
+
+<p>
+<div class="proclaim remark">
+<b>Remark:</b> <i>Equality types</i>.<br>
+One wart of Standard ML is that equality is <i>polymorphic</i>. There is a
+family of types called <dfn>Equality Types</dfn> which have equality
+defined for them. Functions and exceptions lack equality. Other
+languages like Haskell have a type class which allows the user to
+define equality for their own types. Standard ML was too early to take
+advantage of this.
+<br>(End of Remark)
+</div>
+</p>
+
+<h2>Evaluation Rules</h2>
+
+<p>
+\[\begin{array}{c}
+\displaystyle\frac{e_{1}\stackrel{1}{\Longrightarrow}e_{1}'}{\mathtt{if}~e_{1}~\mathtt{then}~e_{2}~\mathtt{else}~e_{3}\stackrel{1}{\Longrightarrow}\mathtt{if}~e_{1}'~\mathtt{then}~e_{2}~\mathtt{else}~e_{3}}\hbox{E-If}\\[18pt]
+\displaystyle\frac{}{\mathtt{if}~\mathtt{true}~\mathtt{then}~e_{2}~\mathtt{else}~e_{3}\stackrel{1}{\Longrightarrow}e_{2}}\hbox{E-IfTrue}\\[12pt]
+\displaystyle\frac{}{\mathtt{if}~\mathtt{false}~\mathtt{then}~e_{2}~\mathtt{else}~e_{3}\stackrel{1}{\Longrightarrow}e_{3}}\hbox{E-IfFalse}\\[12pt]
+\end{array}\]
+</p>
+
+<p>
+We have some rules which describe <code>andalso</code>, <code>orelse</code>, <code>not</code> as
+"syntactic sugar" (abbreviations):
+\[\begin{array}{c}
+\displaystyle\frac{}{e_{1}~\mathtt{andalso}~e_{2}\stackrel{0}{\Longrightarrow}\mathtt{if}~e_{1}~\mathtt{then}~e_{2}~\mathtt{else~false}}\hbox{E-Andalso}\\[12pt]
+\displaystyle\frac{}{e_{1}~\mathtt{orelse}~e_{2}\stackrel{0}{\Longrightarrow}\mathtt{if}~e_{1}~\mathtt{then}~\mathtt{true}~\mathtt{else}~e_{2}}\hbox{E-Orelse}\\[12pt]
+\displaystyle\frac{}{\mathtt{not}~e\stackrel{0}{\Longrightarrow}\mathtt{if}~e~\mathtt{then}~\mathtt{false}~\mathtt{else}~\mathtt{true}}\hbox{E-Not}
+\end{array}\]
+</p>
+
+<p>
+The equality and comparison operators are defined "in the obvious way".
+</p>
+
+</main>
+
+</body>
+</html>
